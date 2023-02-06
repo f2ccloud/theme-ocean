@@ -1,0 +1,28 @@
+<div
+  class="w-full cursor-pointer overflow-hidden rounded-xl bg-white p-3 shadow transition-all duration-500 hover:shadow-md dark:bg-zinc-800"
+>
+  <div class="flex items-center justify-between">
+    <h2 class="inline-flex items-center gap-2 text-base dark:text-zinc-50">
+      <span class="i-tabler-tags text-lg"></span>
+      标签
+    </h2>
+    <a
+      class="group inline-flex items-center gap-2 text-sm text-zinc-600 transition-all hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-300"
+      th:href="@{/tags}"
+    >
+      <span>更多</span>
+      <span class="i-tabler-chevron-right -translate-x-1 text-lg transition-all group-hover:translate-x-0"></span>
+    </a>
+  </div>
+  <div class="mt-2 flex flex-wrap gap-2" th:with="tags = ${tagFinder.list(1,50)}">
+    <a
+      th:each="tag : ${tags}"
+      th:href="@{${tag.status.permalink}}"
+      th:title="${tag.spec.displayName}"
+      class="rounded bg-zinc-100 px-1 py-0.5 text-sm text-zinc-900 hover:bg-zinc-200 dark:bg-zinc-600 dark:text-zinc-50 dark:hover:bg-zinc-700 dark:hover:text-zinc-100"
+    >
+      <th:block th:text="'#'+${tag.spec.displayName}" />
+      <sup th:text="${tag.status.visiblePostCount}"></sup>
+    </a>
+  </div>
+</div>

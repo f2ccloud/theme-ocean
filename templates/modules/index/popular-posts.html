@@ -1,0 +1,52 @@
+<th:block th:if="${theme.config.index.index_tag == true}">
+  <h2 class="text-3xl text-center tracking-tight font-extrabold text-zinc-900 mt-16 mb-8 dark:text-zinc-200">
+    推荐阅读
+  </h2>
+  <ul
+    class="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-3 gap-4 sm:gap-6 xl:gap-8 font-semibold text-gray-900"
+    th:if="${theme.config.index.index_recommend == 'tag' && theme.config.index.tag != null}"
+    th:with="posts = ${postFinder.listByTag(1,6,theme.config.index.tag)}">
+      <li class="pt-4 pb-3 bg-[#f4f4f4] rounded-xl dark:bg-zinc-600" th:each="post : ${posts}">
+        <h3 
+          class="h-6 text-sm font-medium line-clamp-2 hover:text-zinc-500 hover:underline dark:text-zinc-100 mx-5 mb-1">
+          <div class="inline-flex items-center justify-start gap-1">
+            <img
+              th:src="${#theme.assets('/images/read.svg')}"
+              th:title="${post.owner.displayName}"
+              th:alt="${post.owner.displayName}"
+              class="h-4 w-4 mt-[0.175rem] drop-shadow-sm dark:border-zinc-700"
+            />
+            <div class="flex flex-col gap-0.5">
+              <a class="text-overflow" th:text="${post.spec.title}" th:href="@{${post.status.permalink}}"
+                 th:title="${post.spec.title}"></a>
+            </div>
+          </div>
+        </h3>
+        <p class="text-xs font-light line-clamp-6 dark:text-zinc-200 mx-5" th:text="${post.status.excerpt}"></p>
+      </li>
+  </ul>
+
+  <ul
+    class="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-3 gap-4 sm:gap-6 xl:gap-8 font-semibold text-gray-900"
+    th:if="${theme.config.index.index_recommend == 'categories' && theme.config.index.category != null}"
+    th:with="posts = ${postFinder.listByCategory(1,6,theme.config.index.category)}">
+    <li class="pt-4 pb-3 bg-[#f4f4f4] rounded-xl dark:bg-zinc-600" th:each="post : ${posts}">
+      <h3
+        class="h-6 text-sm font-medium line-clamp-2 hover:underline dark:text-zinc-100 mx-5 mb-1">
+        <div class="inline-flex items-center justify-start gap-1">
+          <img
+            th:src="${#theme.assets('/images/read.svg')}"
+            th:title="${post.owner.displayName}"
+            th:alt="${post.owner.displayName}"
+            class="h-4 w-4 mt-[0.175rem] drop-shadow-sm dark:border-zinc-700"
+          />
+          <div class="flex flex-col gap-0.5">
+            <a class="text-overflow" th:text="${post.spec.title}" th:href="@{${post.status.permalink}}"
+               th:title="${post.spec.title}"></a>
+          </div>
+        </div>
+      </h3>
+      <p class="text-xs font-light line-clamp-6 dark:text-zinc-200 mx-5" th:text="${post.status.excerpt}"></p>
+    </li>
+  </ul>
+</th:block>

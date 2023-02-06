@@ -1,0 +1,17 @@
+<th:block th:fragment="next (categories)">
+  <th:block th:fragment="single (categories)" th:each="categoryItem : ${categories}">
+    <a
+      th:href="@{${categoryItem.status.permalink}}"
+      class="-ml-1 inline-flex cursor-pointer items-center gap-1 rounded py-1 font-medium text-zinc-500 transition-all hover:bg-zinc-100 hover:text-zinc-900 hover:shadow-sm dark:text-zinc-200 dark:hover:bg-zinc-700 dark:hover:text-zinc-50"
+      th:classappend="${category} and ${category.metadata.name == categoryItem.metadata.name} ? '!text-zinc-900 !bg-zinc-100 dark:!bg-zinc-700 dark:!text-zinc-50'"
+    >
+      <span th:text="'-'+${categoryItem.spec.displayName}"       
+            th:classappend="'!text-['+${#annotations.getOrDefault(categoryItem, 'color', '#0c7be0')}+']'"
+      ></span>
+    </a>
+    <th:block th:if="${not #lists.isEmpty(categoryItem.children)}">
+      <th:block th:replace="~{modules/category-sub :: next (categories=${categoryItem.children})}"></th:block>
+    </th:block>
+  </th:block>
+</th:block>
+

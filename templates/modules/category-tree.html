@@ -1,0 +1,20 @@
+<ul th:fragment="next (categories)" class="my-3 ml-3 space-y-1 border-l pl-2">
+  <li th:fragment="single (categories)" th:each="categoryItem : ${categories}">
+    <a
+      th:href="@{${categoryItem.status.permalink}}"
+      th:title="${categoryItem.spec.displayName}"
+      th:classappend="${category} and ${category.metadata.name == categoryItem.metadata.name} ? '!text-zinc-900 !bg-zinc-100 dark:!bg-zinc-700 dark:!text-zinc-50'"
+      class="group flex items-center justify-between rounded py-1 px-1.5 transition-all hover:bg-zinc-100 dark:hover:bg-zinc-700"
+    >
+      <span class="text-sm opacity-80 dark:text-zinc-50" th:text="${categoryItem.spec.displayName}"> </span>
+      <span
+        class="rounded bg-zinc-100 py-0.5 px-1 text-xs tabular-nums opacity-70 group-hover:bg-white dark:bg-zinc-600 dark:text-zinc-50 dark:group-hover:bg-zinc-500"
+        th:text="${categoryItem.status.visiblePostCount}"
+      >
+      </span>
+    </a>
+    <th:block th:if="${not #lists.isEmpty(categoryItem.children)}">
+      <th:block th:replace="~{modules/category-tree :: next (categories=${categoryItem.children})}"></th:block>
+    </th:block>
+  </li>
+</ul>

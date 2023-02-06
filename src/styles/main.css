@@ -1,0 +1,70 @@
+body {
+  overflow: overlay;
+}
+
+*::-webkit-scrollbar-track-piece {
+  background-color: #f8f8f8;
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #ddd;
+  background-clip: padding-box;
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: #bbb;
+}
+
+.menu-sticky {
+  @apply fixed top-0 left-0 right-0 z-10 drop-shadow-md backdrop-blur-lg;
+}
+
+.toc-list-item > .toc-list {
+  @apply my-3 ml-3 space-y-1 border-l pl-2;
+}
+
+.text-overflow {
+  overflow: hidden; 
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+/*a标签增加指上下划线*/
+.hover-within a{
+  position: relative
+}
+
+.hover-within a::after{
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255/var(--tw-bg-opacity));
+  content: "";
+  display: block;
+  height: 1px;
+  margin-top: 2px;
+  position: absolute;
+  right: 0;
+  transition: width .2s ease;
+  -webkit-transition: width .2s ease;
+  width: 0
+}
+
+.hover-within a:hover::after {
+  background: #9fdef7;
+  left: 0;
+  width: 100%
+}
+
+/*a标签增加指上下划线*/

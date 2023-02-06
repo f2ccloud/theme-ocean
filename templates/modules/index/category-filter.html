@@ -1,0 +1,26 @@
+<h2 class="text-3xl text-center tracking-tight font-extrabold text-zinc-900 mt-16 mb-8 dark:text-zinc-200">
+按产品浏览
+</h2>
+<ul class="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 xl:gap-8 font-semibold text-gray-900 text-center">
+  <th:block th:with="categories = ${categoryFinder.listAsTree()}">
+    <li class="flex bg-[#f4f4f4] rounded-xl dark:bg-zinc-800 hover:transform hover:scale-105" 
+        th:each="categoryItem,stat : ${categories}">
+      <a class="w-full pt-8 pb-6 px-6"
+         th:if="${stat.index lt 4}"
+         th:href="@{${categoryItem.status.permalink}}">
+        <th:block th:if="${not #strings.isEmpty(categoryItem.spec.cover)}">
+          <img
+            th:src="${categoryItem.spec.cover}"
+            th:alt="${categoryItem.spec.displayName}"
+            class="h-[3.5rem] w-[3.25rem] mx-auto my-1"
+          />
+        </th:block>
+        <p class="text-sm font-light line-clamp-6 dark:text-zinc-200"
+           th:classappend="'!text-['+${#annotations.getOrDefault(categoryItem, 'color', '#0c7be0')}+']'"
+           th:text="${categoryItem.spec.displayName}"></p>
+        <p class="text-xs font-light line-clamp-6 dark:text-zinc-200"
+           th:text="${categoryItem.spec.description}"></p>
+      </a>
+    </li>
+  </th:block>
+</ul>

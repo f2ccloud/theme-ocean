@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" th:fragment="html (title,header,content,head,footer,sidebar,contentClass)">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2" />
+    <title th:text="${title}"></title>
+    <link rel="stylesheet" th:href="@{/assets/dist/style.css?v={version}(version=${theme.spec.version})}" />
+    <script th:src="@{/assets/dist/main.iife.js?v={version}(version=${theme.spec.version})}"></script>
+    <th:block th:if="${head != null}">
+      <th:block th:replace="${head}" />
+    </th:block>
+    <script>
+      main.initColorScheme("[[${theme.config.style.color_scheme}]]",[[${theme.config.style.enable_change_color_scheme}]])
+    </script>
+  </head>
+  <body class="bg-zinc-0 dark:bg-zinc-900" x-data="{ overlayMenu: false }">
+    <th:block th:if="${header != null}">
+      <th:block th:replace="${header}" />
+    </th:block>
+    <th:block th:if="${header == null}">
+      <th:block th:replace="~{modules/header :: header(isHome = true)}" />
+    </th:block>
+    <section class="container mx-auto"></section>
+    <section class="container mx-auto mt-6 grid grid-cols-4 gap-6" th:classappend="${contentClass}">
+      <div class="col-span-5 sm:col-span-4">
+        <th:block th:replace="${content}" />
+      </div>
+    </section>
+    <th:block th:replace="~{modules/footer}" />
+    <th:block th:if="${footer != null}">
+      <th:block th:replace="${footer}" />
+    </th:block>
+    <th:block th:replace="~{modules/overlay-menu}" />
+  </body>
+</html>
