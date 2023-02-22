@@ -4,7 +4,7 @@
 
 Halo 2.0 知识库主题。
 
-主题借鉴 Halo2.0 默认主题 [theme-earth](https://github.com/halo-dev/theme-earth.git)
+主题基于 Halo2.0 默认主题 [theme-earth](https://github.com/halo-dev/theme-earth.git)
 
 ## 开发
 
