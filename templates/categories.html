@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="https://www.thymeleaf.org"
+  th:replace="~{modules/layout :: html(title = '分类 - ' + ${site.title}, header = null, content = ~{::content}, head = null, footer = null, sidebar = null, contentClass = null, isSidebar = true)}"
+>
+  <th:block th:fragment="content">
+    <th:block th:replace="~{modules/category-filter}" />
+
+    <th:block th:with="posts = ${postFinder.list(1,10)}">
+      <div
+        id="post-list"
+        th:if="${posts.total gt 0}"
+        th:with="postItems=${posts.items},list_layout=${theme.config.layout.post_list_layout}"
+        class="mt-6 grid grid-cols-1 gap-6"
+        th:classappend="${list_layout == 'grid_3' ? 'md:grid-cols-2 xl:grid-cols-3' : ''} + ' ' + ${list_layout == 'grid_2' ? 'md:grid-cols-2' : ''}"
+      >
+        <th:block th:each="post : ${postItems}">
+          <th:block
+            th:replace="~{modules/post-card :: post-card(${post},true,true,true,${list_layout == 'single' ? 'column' : 'row'})}"
+          />
+        </th:block>
+      </div>
+
+      <div th:if="${posts.total == 0}" class="mt-6 flex items-center justify-center">
+        <span class="text-sm font-light text-zinc-600 dark:text-zinc-200">此分类下没有文章</span>
+      </div>
+
+      <div th:if="${posts.total gt 10}" class="mt-10 flex justify-end">
+        <a
+          class="group inline-flex items-center gap-2 truncate text-sm text-zinc-600 hover:text-zinc-900 dark:text-zinc-100 dark:hover:text-zinc-200"
+          href="/archives/page/2"
+        >
+          <span>更多文章</span>
+          <span class="i-tabler-chevron-right -translate-x-1 text-lg transition-all group-hover:translate-x-0"></span>
+        </a>
+      </div>
+    </th:block>
+  </th:block>
+</html>

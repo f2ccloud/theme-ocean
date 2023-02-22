@@ -57,7 +57,8 @@
     "release-it": "^15.5.0",
     "tailwindcss": "^3.2.4",
     "tailwindcss-plugin-icons": "^2.0.7",
-    "typescript": "^4.9.3",
+    "axios": "^0.27.2",
+    "typescript": "4.9.3",
     "vite": "^3.2.4"
   },
   "dependencies": {

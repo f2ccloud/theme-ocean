@@ -1,4 +1,9 @@
 body {
+  font-family: Roboto,Helvetica,PingFang SC,Arial,sans-serif !important;
+  color: #333;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
   overflow: overlay;
 }
 
@@ -42,6 +47,14 @@ body {
   -webkit-box-orient: vertical;
 }
 
+.text-overflow-2 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
 /*a标签增加指上下划线*/
 .hover-within a{
   position: relative
@@ -62,9 +75,13 @@ body {
 }
 
 .hover-within a:hover::after {
-  background: #9fdef7;
+  background: #3296EF;
   left: 0;
   width: 100%
 }
 
 /*a标签增加指上下划线*/
+
+.prose h1 {
+  font-size: 2em !important;
+}

@@ -1,7 +1,22 @@
-<aside th:fragment="sidebar (prepend)" class="col-span-1 hidden h-full flex-col gap-6 sm:flex">
+<aside th:fragment="sidebar (prepend)" class="sticky top-20 flex-col gap-6 sm:flex" >
   <th:block th:with="widgets = ${theme.config.sidebar.widgets} ">
     <th:block th:if="${prepend != null}">
       <th:block th:replace="${prepend}" />
+    </th:block>
+    <th:block th:unless="${prepend != null}">
+      <div
+        class="w-full cursor-pointer overflow-hidden rounded-xl bg-white p-3 shadow transition-all duration-500 hover:shadow-md dark:bg-zinc-800"
+      >
+        <div class="flex items-center justify-between">
+          <h2 class="inline-flex items-center gap-2 text-base dark:text-zinc-50">
+            <span class="i-tabler-chevron-left text-lg"></span>
+            <a
+              class="group inline-flex items-center gap-2 text-base text-zinc-600 transition-all hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-300"
+              href="/"
+            >返回首页</a>
+          </h2>
+        </div>
+      </div>
     </th:block>
     <th:block th:each="widget : ${widgets}">
       <th:block th:replace="~{'modules/widgets/'+${widget.value}}" />

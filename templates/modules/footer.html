@@ -1,46 +1,71 @@
-<footer th:if="${theme.config.footer.style == 'style_1'}" class="mt-10 bg-white py-8 dark:bg-zinc-800">
-  <div class="container mx-auto sm:flex sm:items-center sm:justify-between">
-    <a href="/" class="mb-4 flex items-center justify-center sm:mb-0 sm:justify-start">
-      <img
-        th:if="${not #strings.isEmpty(theme.config.footer.logo)} or ${not #strings.isEmpty(site.logo)}"
-        th:src="${theme.config.footer.logo ?: site.logo}"
-        class="mr-3 h-8 w-8"
-        th:alt="${site.title}"
-      />
-      <span class="self-center whitespace-nowrap text-2xl font-semibold dark:text-zinc-50" th:text="${site.title}">
-      </span>
-    </a>
-    <th:block th:if="${not #strings.isEmpty(theme.config.footer.menu)}">
-      <ul
-        th:with="menu = ${menuFinder.getByName(theme.config.footer.menu)}"
-        class="mb-6 flex flex-wrap items-center justify-center text-sm text-zinc-500 dark:text-zinc-200 sm:mb-0 sm:justify-start"
-      >
-        <li th:each="menuItem : ${menu.menuItems}">
-          <a
-            th:href="@{${menuItem.status.href}}"
-            class="mr-4 transition-all hover:text-zinc-900 hover:underline dark:hover:text-white md:mr-6"
-            th:text="${menuItem.status.displayName}"
-          ></a>
-        </li>
-      </ul>
-    </th:block>
+<footer th:if="${theme.config.footer.style == 'style_1'}" class="relative bg-zinc-100 pt-8 pb-6 mt-8 dark:bg-zinc-800">
+  <div class="container mx-auto px-4">
+    <div class="flex flex-wrap text-center lg:text-left">
+      <div class="w-full lg:w-4/12 px-4">
+        <div class="flex flex-row ...">
+          <div>
+            <img
+              th:if="${not #strings.isEmpty(theme.config.footer.logo)} or ${not #strings.isEmpty(site.logo)}"
+              th:src="${theme.config.footer.logo ?: site.logo}"
+              class="mr-3 h-16 w-16 text-zinc-600 dark:text-zinc-200"
+              th:alt="${site.title}"
+            />
+          </div>
+          <div>
+            <h4 class="text-3xl font-semibold text-zinc-600 dark:text-zinc-200" th:text="${theme.config.footer.title}">
+            </h4>
+            <h5 class="text-base mt-0 mb-2 text-zinc-600 dark:text-zinc-200 font-light"
+                th:text="${theme.config.footer.slogan}">
+            </h5>
+          </div>
+        </div>
+      </div>
+      <div class="w-full lg:w-8/12 px-4">
+        <div class="flex flex-wrap items-top mb-6" th:if="${not #lists.isEmpty(theme.config.footer.menus)}">
+          <th:block th:each="menuName : ${theme.config.footer.menus}">
+            <div class="w-full sm:w-6/12 md:w-5/12 xl:w-3/12 pt-6 md:pl-4 ml-auto"
+                 th:with="menu = ${menuFinder.getByName(menuName.name)}">
+						<span class="block uppercase text-zinc-600 dark:text-zinc-200 text-xl font-semibold mb-2"
+                  th:text="${menu.spec.displayName}">
+						</span>
+              <ul class="list-unstyled hover-within" th:with="menuItems = ${menu.menuItems}">
+                <li th:each="menuItem : ${menuItems}">
+                  <a
+                    class="text-zinc-600 hover:text-zinc-800 dark:text-zinc-200 font-light pb-2 text-sm"
+                    th:href="@{${menuItem.status.href}}"
+                    th:text="${menuItem.status.displayName}">
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </th:block>
+        </div>
+      </div>
+    </div>
   </div>
-  <hr class="my-6 border-zinc-100 dark:border-zinc-700 sm:mx-auto lg:my-8" />
-  <span class="container mx-auto block text-center text-sm text-zinc-500">
-    <a
-      href="https://beian.miit.gov.cn/"
-      class="hover:underline"
-      target="_blank"
-      th:href="${theme.config.beian.icp_link}"
-      th:text="${theme.config.beian.icp_text}"
-    ></a>
-  </span>
-  <span class="container mx-auto block text-center text-sm text-zinc-500 dark:text-zinc-300">
-    ©
-    <th:block th:text="${#dates.format(new java.util.Date().getTime(), 'yyyy')}" />
-    <a href="/" class="hover:underline" th:text="${site.title}"></a>. All Rights Reserved. Powered by
-    <a href="https://halo.run" class="hover:underline" target="_blank">Halo</a>.
-  </span>
+  <div>
+    <hr class="my-6 border-zinc-200 dark:border-zinc-700 sm:mx-auto lg:my-8" />
+    <div class="flex flex-wrap items-center md:justify-between justify-center font-light">
+      <div class="w-full md:w-4/12 px-4 mx-auto text-center">
+        <span class="text-zinc-500 hover:text-zinc-900 dark:hover:text-whit">
+          <a
+            href="https://beian.miit.gov.cn/"
+            class="hover:underline"
+            target="_blank"
+            th:href="${theme.config.beian.icp_link}"
+            th:text="${theme.config.beian.icp_text}"
+          ></a>
+        </span>
+        <div class="text-sm text-zinc-500 dark:text-zinc-300 xs:text-center font-light">
+          Copyright ©
+          <th:block th:text="${#dates.format(new java.util.Date().getTime(), 'yyyy')}" />
+          <a href="/" class="hover:underline" th:text="${site.title}"></a>. All Rights Reserved.
+          <br/>Powered by
+          <a href="https://halo.run" class="hover:underline" target="_blank">Halo</a>.
+        </div>
+      </div>
+    </div>
+  </div>
 </footer>
 
 <footer th:if="${theme.config.footer.style == 'style_2'}" class="mt-10 bg-white py-8 dark:bg-zinc-800">
@@ -112,74 +137,47 @@
   </div>
 </footer>
 
-
-<footer th:if="${theme.config.footer.style == 'style_3'}" 
-        class="relative bg-zinc-50 pt-8 pb-6 mt-8 dark:bg-zinc-800">
-  <div class="container mx-auto px-4">
-    <div class="flex flex-wrap text-center lg:text-left">
-      <div class="w-full lg:w-4/12 px-4">
-        <div class="flex flex-row ...">
-          <div>
-            <img
-              th:if="${not #strings.isEmpty(theme.config.footer.logo)} or ${not #strings.isEmpty(site.logo)}"
-              th:src="${theme.config.footer.logo ?: site.logo}"
-              class="mr-3 h-16 w-16 text-zinc-600 dark:text-zinc-200"
-              th:alt="${site.title}"
-            />
-          </div>
-          <div>
-            <h4 class="text-3xl font-semibold text-zinc-600 dark:text-zinc-200" th:text="${theme.config.footer.title}">
-            </h4>
-            <h5 class="text-base mt-0 mb-2 text-zinc-600 dark:text-zinc-200 font-light" 
-                th:text="${theme.config.footer.slogan}">
-            </h5>
-          </div>
-        </div>
-      </div>
-      <div class="w-full lg:w-8/12 px-4">
-        <div class="flex flex-wrap items-top mb-6" th:if="${not #lists.isEmpty(theme.config.footer.menus)}">
-          <th:block th:each="menuName : ${theme.config.footer.menus}">
-          <div class="w-full lg:w-2/12 px-4 ml-auto" th:with="menu = ${menuFinder.getByName(menuName.name)}">
-						<span class="block uppercase text-zinc-500 dark:text-zinc-200 text-sm font-semibold mb-2" 
-                  th:text="${menu.spec.displayName}">
-							Useful Links
-						</span>
-            <ul class="list-unstyled hover-within" th:with="menuItems = ${menu.menuItems}">
-              <li th:each="menuItem : ${menuItems}">
-                <a 
-                  class="text-zinc-600 hover:text-zinc-800 dark:text-zinc-200 font-light pb-2 text-xs"
-                   th:href="@{${menuItem.status.href}}"
-                   th:text="${menuItem.status.displayName}">
-                </a>
-              </li>
-            </ul>
-          </div>
-          </th:block>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div>
-    <hr class="my-6 border-zinc-200 dark:border-zinc-700 sm:mx-auto lg:my-8" />
-    <div class="flex flex-wrap items-center md:justify-between justify-center font-light">
-      <div class="w-full md:w-4/12 px-4 mx-auto text-center">
-        <span class="text-zinc-500 hover:text-zinc-900 dark:hover:text-whit">
+<footer th:if="${theme.config.footer.style == 'style_3'}" class="mt-10 bg-white py-8 dark:bg-zinc-800">
+  <div class="container mx-auto sm:flex sm:items-center sm:justify-between">
+    <a href="/" class="mb-4 flex items-center justify-center sm:mb-0 sm:justify-start">
+      <img
+        th:if="${not #strings.isEmpty(theme.config.footer.logo)} or ${not #strings.isEmpty(site.logo)}"
+        th:src="${theme.config.footer.logo ?: site.logo}"
+        class="mr-3 h-8 w-8"
+        th:alt="${site.title}"
+      />
+      <span class="self-center whitespace-nowrap text-2xl font-semibold dark:text-zinc-50" th:text="${site.title}">
+      </span>
+    </a>
+    <th:block th:if="${not #strings.isEmpty(theme.config.footer.menu)}">
+      <ul
+        th:with="menu = ${menuFinder.getByName(theme.config.footer.menu)}"
+        class="mb-6 flex flex-wrap items-center justify-center text-sm text-zinc-500 dark:text-zinc-200 sm:mb-0 sm:justify-start"
+      >
+        <li th:each="menuItem : ${menu.menuItems}">
           <a
-            href="https://beian.miit.gov.cn/"
-            class="hover:underline"
-            target="_blank"
-            th:href="${theme.config.beian.icp_link}"
-            th:text="${theme.config.beian.icp_text}"
+            th:href="@{${menuItem.status.href}}"
+            class="mr-4 transition-all hover:text-zinc-900 hover:underline dark:hover:text-white md:mr-6"
+            th:text="${menuItem.status.displayName}"
           ></a>
-        </span>
-        <div class="text-xs text-zinc-500 dark:text-zinc-300 xs:text-center font-light">
-          Copyright ©       
-          <th:block th:text="${#dates.format(new java.util.Date().getTime(), 'yyyy')}" />
-          <a href="/" class="hover:underline" th:text="${site.title}"></a>. All Rights Reserved. 
-          <br/>Powered by
-          <a href="https://halo.run" class="hover:underline" target="_blank">Halo</a>.
-        </div>
-      </div>
-    </div>
+        </li>
+      </ul>
+    </th:block>
   </div>
+  <hr class="my-6 border-zinc-100 dark:border-zinc-700 sm:mx-auto lg:my-8" />
+  <span class="container mx-auto block text-center text-sm text-zinc-500">
+    <a
+      href="https://beian.miit.gov.cn/"
+      class="hover:underline"
+      target="_blank"
+      th:href="${theme.config.beian.icp_link}"
+      th:text="${theme.config.beian.icp_text}"
+    ></a>
+  </span>
+  <span class="container mx-auto block text-center text-sm text-zinc-500 dark:text-zinc-300">
+    ©
+    <th:block th:text="${#dates.format(new java.util.Date().getTime(), 'yyyy')}" />
+    <a href="/" class="hover:underline" th:text="${site.title}"></a>. All Rights Reserved. Powered by
+    <a href="https://halo.run" class="hover:underline" target="_blank">Halo</a>.
+  </span>
 </footer>

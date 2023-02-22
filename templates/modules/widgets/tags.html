@@ -2,7 +2,7 @@
   class="w-full cursor-pointer overflow-hidden rounded-xl bg-white p-3 shadow transition-all duration-500 hover:shadow-md dark:bg-zinc-800"
 >
   <div class="flex items-center justify-between">
-    <h2 class="inline-flex items-center gap-2 text-base dark:text-zinc-50">
+    <h2 class="inline-flex items-center gap-2 text-lg dark:text-zinc-50">
       <span class="i-tabler-tags text-lg"></span>
       标签
     </h2>
@@ -16,13 +16,14 @@
   </div>
   <div class="mt-2 flex flex-wrap gap-2" th:with="tags = ${tagFinder.list(1,50)}">
     <a
-      th:each="tag : ${tags}"
-      th:href="@{${tag.status.permalink}}"
-      th:title="${tag.spec.displayName}"
+      th:each="tagItem : ${tags}"
+      th:href="@{${tagItem.status.permalink}}"
+      th:title="${tagItem.spec.displayName}"
       class="rounded bg-zinc-100 px-1 py-0.5 text-sm text-zinc-900 hover:bg-zinc-200 dark:bg-zinc-600 dark:text-zinc-50 dark:hover:bg-zinc-700 dark:hover:text-zinc-100"
+      th:classappend="(${tag} and ${tag.metadata.name == tagItem.metadata.name}) ? '!bg-gray-200 dark:!bg-zinc-700 dark:!text-zinc-100 ring-2 ring-gray-300 dark:ring-zinc-600' : ''"
     >
-      <th:block th:text="'#'+${tag.spec.displayName}" />
-      <sup th:text="${tag.status.visiblePostCount}"></sup>
+      <th:block th:text="'#'+${tagItem.spec.displayName}" />
+      <sup th:text="${tagItem.status.visiblePostCount}"></sup>
     </a>
   </div>
 </div>

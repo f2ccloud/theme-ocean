@@ -101,8 +101,9 @@
       th:styleappend="${theme.config.banner.header_background_type == 'image' ? 'background-image: url(' + theme.config.banner.header_background_image + ');' : 'background: ' + theme.config.banner.header_background + ';'}"
     >
       <div class="container mx-auto flex h-full flex-col items-center justify-center gap-2 py-6">
-        <span class="text-5xl text-white" th:text="${theme.config.banner.custom_title}"></span>
-        <span class="text-sm font-light text-white opacity-50" th:text="${theme.config.banner.custom_sub_title}"></span>
+        <span class="text-5xl text-white" th:if="${not #strings.isEmpty(theme.config.banner.custom_title)}" th:text="${theme.config.banner.custom_title}"></span>
+        <span class="text-sm font-light text-white opacity-50" th:if="${not #strings.isEmpty(theme.config.banner.custom_sub_title)}"
+              th:text="${theme.config.banner.custom_sub_title}"></span>
         <th:block th:if="${theme.config.banner.banner_search} and ${pluginFinder.available('PluginSearchWidget')}">
           <div class="bg-white rounded-full w-full lg:w-1/2 dark:bg-zinc-900 relative pointer-events-auto" 
                th:if="${pluginFinder.available('PluginSearchWidget')}">
@@ -111,7 +112,7 @@
               输入关键字
             </button>
           </div>
-          <div class="text-white text-sm font-light opacity-50 lg:w-1/2 lg:ml-20" 
+          <div class="text-white text-sm font-light opacity-75 lg:w-1/2 lg:ml-20" 
                th:if="${not #lists.isEmpty(theme.config.banner.tags)} and ${pluginFinder.available('PluginSearchWidget')}">
             <p>热门查询：
               <th:block th:each="tag,tagStat : ${theme.config.banner.tags}">

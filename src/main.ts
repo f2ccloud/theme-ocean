@@ -4,11 +4,17 @@ import Alpine from "alpinejs";
 import * as tocbot from "tocbot";
 import dropdown from "./alpine-data/dropdown";
 import colorSchemeSwitcher from "./alpine-data/color-scheme-switcher";
+import pagination from "./alpine-data/pagination";
+import postUtil from "./alpine-data/post-util";
 
 window.Alpine = Alpine;
 
 Alpine.data("dropdown", dropdown);
 Alpine.data("colorSchemeSwitcher", colorSchemeSwitcher);
+// @ts-ignore
+Alpine.data("pagination", pagination);
+// @ts-ignore
+Alpine.data("postUtil", postUtil);
 
 Alpine.start();
 
@@ -75,3 +81,23 @@ window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", fun
     setColorScheme("system", false);
   }
 });
+
+/*移除HTML标签代码*/
+export function removeHTMLTag(str: String){
+  str = str.replace(/<.*?>/g, ''); //去除HTML tag
+  str = str.replace(/<\/?[^>]*>/g, ''); //去除HTML tag
+  str = str.replace(/[ | ]*\n/g, '\n'); //去除行尾空
+  str = str.replace(/\n[\s| | ]*\r/g,'\n'); //去除多余空行
+  str = str.replace(/ /ig, '');//去掉 
+  // str = str.replace(/[a-zA-Z]+/g, ''); //去除字母
+  return str;
+}
+
+/*阅读时间*/
+export function readTime(){
+  const contentHtml: HTMLElement | null = document.getElementById("content");
+  // @ts-ignore
+  let str = contentHtml.innerHTML
+  return '文章共计 ' + removeHTMLTag(str).length +' 个字，阅读完成需要 '+ Math.ceil(removeHTMLTag(str).length/400) +' 分钟';
+}
+

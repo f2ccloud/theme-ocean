@@ -33,7 +33,7 @@
         th:href="@{${post.categories[0].status.permalink}}"
         th:title="${post.categories[0].spec.displayName}"
         th:text="${post.categories[0].spec.displayName}"
-        th:classappend="'!text-['+${#annotations.getOrDefault(post.categories[0], 'color', '#0c7be0')}+']'"
+        th:style="'color:'+${#annotations.getOrDefault(post.categories[0], 'color', '#0c7be0')}"
         class="mr-1 text-sm font-medium text-zinc-800 hover:text-zinc-900 dark:text-zinc-500 dark:hover:text-zinc-600"
       >
       </a>
@@ -42,7 +42,7 @@
         th:href="@{${tag.status.permalink}}"
         th:title="${tag.spec.displayName}"
         th:text="'#'+${tag.spec.displayName}"
-        class="cursor-pointer text-sm italic text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-500"
+        class="cursor-pointer text-sm text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-500"
       >
       </a>
     </div>

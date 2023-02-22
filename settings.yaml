@@ -10,19 +10,19 @@ spec:
         - $formkit: select
           name: post_list_layout
           label: 文章列表布局
-          value: grid_3
+          value: single
           options:
-            - label: 网格（一行三列）
-              value: grid_3
-            - label: 网格（一行两列）
-              value: grid_2
             - label: 单条
               value: single
+            - label: 网格（一行两列）
+              value: grid_2
+            - label: 网格（一行三列）
+              value: grid_3
           help: "选择单条时，文章卡片的图片将位于左侧"
         - $formkit: radio
           name: content_header
           label: 文章页顶部图片
-          value: true
+          value: false
           options:
             - label: 显示
               value: true
@@ -35,11 +35,9 @@ spec:
         - $formkit: text
           name: custom_title
           label: Banner标题
-          value: FIT2CLOUD
         - $formkit: text
           name: custom_sub_title
           label: Banner副标题
-          value: FIT2CLOUD
         - $formkit: select
           name: header_background_type
           id: header_background_type
@@ -85,40 +83,73 @@ spec:
       label: 首页
       formSchema:
         - $formkit: radio
-          name: index_theme
-          id: index_theme
-          key: index_theme
-          label: 是否显示常见主题
+          name: index_menu
+          id: index_menu
+          key: index_menu
+          label: 是否显示模块一
           value: false
           options:
             - label: 显示
               value: true
             - label: 隐藏
               value: false
+        - $formkit: text
+          if: "$get(index_menu).value === true"
+          name: module_one
+          id: module_one
+          key: module_one
+          value: 模块一
+          label: 模块一名称
+          help: 默认显示主菜单项
+        - $formkit: radio
+          name: index_theme
+          id: index_theme
+          key: index_theme
+          label: 是否显示模块二
+          value: false
+          options:
+            - label: 显示
+              value: true
+            - label: 隐藏
+              value: false
+        - $formkit: text
+          if: "$get(index_theme).value === true"
+          name: module_two
+          id: module_two
+          key: module_two
+          value: 模块二
+          label: 模块二名称
         - $formkit: menuRadio
           if: "$get(index_theme).value === true"
           name: menu
           id: menu
           key: menu
-          label: 常见主题
+          label: 模块二数据
           help: 默认显示前四个一级菜单项
         - $formkit: radio
           name: index_tag
           id: index_tag
           key: index_tag
-          label: 是否显示推荐阅读
+          label: 是否显示模块二
           value: false
           options:
             - label: 显示
               value: true
             - label: 隐藏
               value: false
+        - $formkit: text
+          if: "$get(index_tag).value === true"
+          name: module_there
+          id: module_there
+          key: module_there
+          value: 模块三
+          label: 模块三名称
         - $formkit: select
           if: "$get(index_tag).value === true"
           name: index_recommend
           id: index_recommend
           key: index_recommend
-          label: 推荐阅读类型
+          label: 模块三类型
           value: tag
           options:
             - label: 文章标签
@@ -130,14 +161,14 @@ spec:
           name: tag
           id: tag
           key: tag
-          label: 推荐阅读
+          label: 模块三数据
           help: 默认显示选中标签的前六篇文章
         - $formkit: categorySelect
           if: "$get(index_tag).value === true && $get(index_recommend).value === categories"
           name: category
           id: category
           key: category
-          label: 推荐阅读
+          label: 模块三数据
           help: 默认显示选中分类的前六篇文章
     - group: style
       label: 样式
@@ -179,8 +210,6 @@ spec:
                   value: categories
                 - label: 文章标签
                   value: tags
-                - label: 返回首页
-                  value: home
 
         - $formkit: group
           name: profile
@@ -287,18 +316,18 @@ spec:
           name: slogan
           id: slogan
           key: slogan
-          if: "$get(style).value === style_2 || $get(style).value === style_3"
+          if: "$get(style).value === style_2 || $get(style).value === style_1"
           label: 标语
 
         - $formkit: menuRadio
-          if: "$get(style).value === style_1"
+          if: "$get(style).value === style_3"
           name: menu
           id: menu
           key: menu
           label: 右侧菜单
 
         - $formkit: repeater
-          if: "$get(style).value === style_2 || $get(style).value === style_3"
+          if: "$get(style).value === style_2 || $get(style).value === style_1"
           name: menus
           id: menus
           key: menus

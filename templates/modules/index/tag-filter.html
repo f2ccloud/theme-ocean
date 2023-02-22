@@ -1,34 +1,62 @@
 <th:block th:if="${theme.config.index.index_theme == true} and ${not #lists.isEmpty(theme.config.index.menu)}">
-<h2 class="text-3xl text-center tracking-tight font-extrabold text-zinc-900 mt-16 mb-8 dark:text-zinc-200">
-  常见主题
+<h2 class="text-3xl text-center font-light text-[#333] mt-16 mb-8 dark:text-zinc-200"
+    th:text="${theme.config.index.module_two}">
+常见主题
 </h2>
 <div
-  class="w-full cursor-pointer overflow-hidden rounded-xl bg-white p-3 transition-all duration-500 dark:bg-zinc-800"
+  class="w-full cursor-pointer overflow-hidden rounded-xl p-3 transition-all duration-500 dark:bg-zinc-800 "
 >
   <div class="max-w-screen-lg xl:max-w-screen-xl mx-auto divide-y divide-zinc-200 px-4 sm:px-6 md:px-8">
     <ul 
-      class="text-sm font-medium pt-6 pb-14 sm:pb-20 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-10 gap-x-2" 
+      class="text-sm font-medium py-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-10 gap-x-20" 
         th:if="${not #lists.isEmpty(theme.config.index.menu)}">
       <th:block th:with="menu = ${menuFinder.getByName(theme.config.index.menu)}">
         <th:block th:each="menuItem,stat : ${menu.menuItems}">
-          <li class="space-y-2 row-span-2" th:if="${stat.index lt 4}">
+          <li class="space-y-2" th:if="${stat.index lt 4}">
             <div class="flex flex-row ...">
               <div>
-                <span class="i-tabler-category text-lg"></span>
+                <span class="text-lg">
+                  <img
+                    th:if="${#annotations.contains(menuItem, 'icon')}"
+                    th:src="${#annotations.get(menuItem, 'icon')}"
+                    th:title="${menuItem.status.displayName}"
+                    th:alt="${menuItem.status.displayName}"
+                    class="h-5 w-5 mt-[0.175rem] mr-1 drop-shadow-sm dark:border-zinc-700"
+                  />
+                </span>
               </div>
-              <div>
-                <h2 class="text-sm font-semibold tracking-wide text-zinc-700 uppercase dark:text-zinc-100 text-overflow"
-                    th:text="${menuItem.status.displayName}">
-                </h2>
+              <div class="hover-within">
+                <a
+                  th:href="@{${menuItem.status.href}}" th:title="${menuItem.status.displayName}">
+                  <h2 
+                    class="text-lg font-semibold tracking-wide text-zinc-700 uppercase dark:text-zinc-100 text-overflow hover:scale-105"
+                      th:text="${menuItem.status.displayName}">
+                  </h2>
+                </a>
               </div>
             </div>
             <th:block th:if="${not #lists.isEmpty(menuItem.children)}">
-              <ul class="space-y-1 pl-0">
+              <ul class="space-y-1 pl-6 ">
                 <li th:each="menuInfo : ${menuItem.children}">
-                  <a
-                    class="hover:text-zinc-700 text-zinc-500 font-light text-xs dark:text-zinc-400 dark:hover:text-zinc-300 transition-colors duration-200 text-overflow"
-                    th:href="@{${menuInfo.status.href}}" th:title="${menuInfo.status.displayName}" th:text="${menuInfo.status.displayName}">
-                  </a>
+                  <div class="flex flex-row ...">
+                    <div>
+                      <span class="text-base">
+                        <img
+                          th:if="${#annotations.contains(menuInfo, 'icon')}"
+                          th:src="${#annotations.get(menuInfo, 'icon')}"
+                          th:title="${menuInfo.status.displayName}"
+                          th:alt="${menuInfo.status.displayName}"
+                          class="h-5 w-5 mt-[0.175rem] mr-1 drop-shadow-sm dark:border-zinc-700"
+                        />
+                      </span>
+                    </div>
+                    <div class="hover-within">
+                      <a
+                        class="hover:underline hover:text-zinc-900 hover:scale-105 text-zinc-800 font-light text-sm dark:text-zinc-400 dark:hover:text-zinc-300 transition-colors duration-300 text-overflow"
+                        th:href="@{${menuInfo.status.href}}" th:title="${menuInfo.status.displayName}" th:text="${menuInfo.status.displayName}">
+                      </a>
+                    </div>
+                  </div>
                 </li>
               </ul>
             </th:block>

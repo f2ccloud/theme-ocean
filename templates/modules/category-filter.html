@@ -9,19 +9,19 @@
     </a>
   </li>
   <th:block th:with="categories = ${categoryFinder.listAsTree()}">
-    <th:block th:each="categoryItem : ${categories}">
+    <th:block th:each="categoryItem,categoryStat : ${categories}">
       <li
         x-data="dropdown"
         @mouseenter="open()"
         @mouseleave="close()"
         class="relative cursor-pointer rounded inline-flex items-center gap-1 px-2 font-medium text-zinc-500 transition-all hover:bg-zinc-100 hover:text-zinc-900 hover:shadow-sm dark:text-zinc-200 dark:hover:bg-zinc-700 dark:hover:text-zinc-50"
-        th:classappend="${category} and ${category.metadata.name == categoryItem.metadata.name} ? '!text-zinc-900 !bg-zinc-100 dark:!bg-zinc-700 dark:!text-zinc-50'"
+        th:classappend="(${category} and ${category.metadata.name == categoryItem.metadata.name})? '!text-zinc-900 !bg-zinc-100 dark:!bg-zinc-700 dark:!text-zinc-50'"
       >
         <span class="truncate text-base">            
           <a
             th:href="@{${categoryItem.status.permalink}}"
             th:text="${categoryItem.spec.displayName}"
-            th:classappend="'!text-['+${#annotations.getOrDefault(categoryItem, 'color', '#0c7be0')}+']'"
+            th:style="'color:'+${#annotations.getOrDefault(categoryItem, 'color', '#0c7be0')}"
           >
           </a>
           <th:block th:if="${not #lists.isEmpty(categoryItem.children)}">

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" th:fragment="html (title,header,content,head,footer,sidebar,contentClass)">
+<html lang="en" th:fragment="html (title,header,content,head,footer,sidebar,contentClass,isSidebar)">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -14,7 +14,9 @@
       main.initColorScheme("[[${theme.config.style.color_scheme}]]",[[${theme.config.style.enable_change_color_scheme}]])
     </script>
   </head>
-  <body class="bg-zinc-0 dark:bg-zinc-900">
+  <body class="dark:bg-zinc-900"
+        th:classappend="${isSidebar == false ? 'bg-[#F8F9FC]' : 'bg-zinc-0'}"
+  >
     <th:block th:if="${header != null}">
       <th:block th:replace="${header}" />
     </th:block>
@@ -23,14 +25,23 @@
     </th:block>
     <section class="container mx-auto"></section>
     <section class="container mx-auto mt-6 grid grid-cols-4 gap-6" th:classappend="${contentClass}">
-      <div class="col-span-4 sm:col-span-3">
-        <th:block th:replace="${content}" />
-      </div>
-      <th:block th:if="${sidebar != null}">
-        <th:block th:replace="${sidebar}" />
+      <th:block th:if="${isSidebar == true}">
+        <div class="col-span-4 sm:col-span-3 ">
+          <th:block th:replace="${content}" />
+        </div>
+        <div class="col-span-1 p-2">
+        <th:block th:if="${sidebar != null}">
+          <th:block th:replace="${sidebar}" />
+        </th:block>
+        <th:block th:if="${sidebar == null}">
+          <th:block th:replace="~{modules/sidebar :: sidebar(prepend = null)}" />
+        </th:block>
+        </div>
       </th:block>
-      <th:block th:if="${sidebar == null}">
-        <th:block th:replace="~{modules/sidebar :: sidebar(prepend = null)}" />
+      <th:block th:if="${isSidebar == false}">
+        <div class="col-span-5 sm:col-span-4">
+          <th:block th:replace="${content}" />
+        </div>
       </th:block>
     </section>
     <th:block th:replace="~{modules/footer}" />

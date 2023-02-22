@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html
   xmlns:th="https://www.thymeleaf.org"
-  th:replace="~{modules/layout-index :: html(title = ${site.title}, header = null, content = ~{::content}, head = null, footer = null, sidebar = null, contentClass = null)}"
+  th:replace="~{modules/layout :: html(title = ${site.title}, header = null, content = ~{::content}, head = null, footer = null, sidebar = null, contentClass = null, isSidebar = false)}"
 >
   <th:block th:fragment="content">
     <th:block th:replace="~{modules/index/category-filter}" />
