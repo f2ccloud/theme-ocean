@@ -2,6 +2,7 @@
   <div class="container mx-auto px-4">
     <div class="flex flex-wrap text-center lg:text-left">
       <div class="w-full lg:w-4/12 px-4">
+        <a href="/">
         <div class="flex flex-row ...">
           <div>
             <img
@@ -19,6 +20,7 @@
             </h5>
           </div>
         </div>
+        </a>
       </div>
       <div class="w-full lg:w-8/12 px-4">
         <div class="flex flex-wrap items-top mb-6" th:if="${not #lists.isEmpty(theme.config.footer.menus)}">
@@ -181,3 +183,18 @@
     <a href="https://halo.run" class="hover:underline" target="_blank">Halo</a>.
   </span>
 </footer>
+
+
+<a 
+  class="hidden fixed m-0 bottom-24 right-10 w-10 h-10 leading-10 text-center rounded-full border-[1px] border-zinc-300 border-solid" 
+   id="back-to-top"
+   href="Javascript:scroll(0,0)">
+  <span class="i-tabler-chevron-up text-[#7ca5e7] text-lg transition-all">至顶</span>
+</a>
+
+<a
+  class="hidden fixed m-0 bottom-24 right-10 w-10 h-10 leading-10 text-center rounded-full border-[1px] border-zinc-300 border-solid"
+  id="back-to-down"
+  href="Javascript:scroll(0,document.documentElement.scrollHeight)">
+  <span class="i-tabler-chevron-down text-[#7ca5e7] text-lg transition-all">至底</span>
+</a>

@@ -101,3 +101,23 @@ export function readTime(){
   return '文章共计 ' + removeHTMLTag(str).length +' 个字，阅读完成需要 '+ Math.ceil(removeHTMLTag(str).length/400) +' 分钟';
 }
 
+// 快速返回顶部或底部
+const onScrollToTop = () => {
+  const backToTop = document.getElementById("back-to-top");
+  const backToDown = document.getElementById("back-to-down");
+  console.log(window.scrollY)
+  if (window.scrollY < 100) {
+    backToTop?.classList.add("hidden");
+    backToDown?.classList.add("hidden");
+  }else if (window.scrollY > 300) {
+    backToTop?.classList.remove("hidden");
+    backToDown?.classList.add("hidden");
+  } else {
+    backToTop?.classList.add("hidden");
+    backToDown?.classList.remove("hidden");
+  }
+};
+
+window.addEventListener("scroll", onScrollToTop);
+
+
