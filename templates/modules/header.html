@@ -1,18 +1,34 @@
 <header x-data="{ open : false }" th:with="menu = ${menuFinder.getPrimary()}">
   <div th:fragment="header (isHome, cover, title)">
     <div id="header-menu" class="flex h-14 bg-white py-3 shadow-sm transition-all dark:bg-zinc-900">
-      <div class="container mx-auto flex h-full justify-between">
+      <div class="container mx-auto flex h-full justify-between" x-data="colorSchemeSwitcher">
         <div class="flex h-full items-center gap-6">
           <div class="mr-2 h-full">
             <a href="/" class="inline-flex h-full items-center">
+              <template x-if="currentValue == 'dark'">
+                <img
+                  th:if="${not #strings.isEmpty(theme.config.style.dark_logo)}"
+                  th:src="${theme.config.style.dark_logo}"
+                  th:alt="dark_logo"
+                  class="h-full w-full"
+                />
+              </template>
+              <template x-if="currentValue == 'light'">
+                <img
+                  th:if="${not #strings.isEmpty(theme.config.style.light_logo)}"
+                  th:src="${theme.config.style.light_logo}"
+                  th:alt="light_logo"
+                  class="h-full w-full"
+                />
+              </template>
               <img
-                th:if="${not #strings.isEmpty(site.logo)}"
+                th:if="${#strings.isEmpty(theme.config.style.dark_logo) and #strings.isEmpty(theme.config.style.light_logo) and not #strings.isEmpty(site.logo)}"
                 th:src="${site.logo}"
                 th:alt="Logo"
                 class="h-full w-full"
               />
               <span
-                th:if="${#strings.isEmpty(site.logo)}"
+                th:if="${#strings.isEmpty(theme.config.style.dark_logo) and #strings.isEmpty(theme.config.style.light_logo) and #strings.isEmpty(site.logo)}"
                 id="site-title"
                 class="text-lg font-medium text-zinc-900 dark:text-zinc-100"
                 th:text="${site.title}"
@@ -63,7 +79,7 @@
               </ul>
             </li>
           </ul>
-          <ul class="flex items-center gap-4 pl-4" x-data="colorSchemeSwitcher">
+          <ul class="flex items-center gap-4 pl-4">
             <li class="sm:hidden" x-on:click="open = true">
               <div class="i-tabler-menu-2 text-lg text-zinc-600 hover:text-blue-600 dark:text-zinc-100"></div>
             </li>

@@ -182,7 +182,18 @@ spec:
               value: dark
             - label: 浅色
               value: light
-
+        - $formkit: attachment
+          name: dark_logo
+          id: dark_logo
+          key: dark_logo
+          label: 深色Logo
+          help: 默认使用站点Logo
+        - $formkit: attachment
+          name: light_logo
+          id: light_logo
+          key: light_logo
+          label: 浅色Logo
+          help: 默认使用站点Logo
         - $formkit: checkbox
           name: enable_change_color_scheme
           label: 允许访客切换配色
