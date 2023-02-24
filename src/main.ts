@@ -105,7 +105,6 @@ export function readTime(){
 const onScrollToTop = () => {
   const backToTop = document.getElementById("back-to-top");
   const backToDown = document.getElementById("back-to-down");
-  console.log(window.scrollY)
   if (window.scrollY < 100) {
     backToTop?.classList.add("hidden");
     backToDown?.classList.add("hidden");
