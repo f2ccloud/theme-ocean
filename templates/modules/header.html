@@ -5,7 +5,7 @@
         <div class="flex h-full items-center gap-6">
           <div class="mr-2 h-full">
             <a href="/" class="inline-flex h-full items-center">
-              <template x-if="currentValue == 'dark'">
+              <template x-if="currentValue && currentValue == 'dark'">
                 <img
                   th:if="${not #strings.isEmpty(theme.config.style.dark_logo)}"
                   th:src="${theme.config.style.dark_logo}"
@@ -13,7 +13,7 @@
                   class="h-full w-full"
                 />
               </template>
-              <template x-if="currentValue == 'light'">
+              <template x-if="currentValue && currentValue == 'light'">
                 <img
                   th:if="${not #strings.isEmpty(theme.config.style.light_logo)}"
                   th:src="${theme.config.style.light_logo}"
@@ -113,34 +113,151 @@
     </div>
     <div
       th:if="${isHome}"
-      class="bg-cover bg-center bg-no-repeat h-96"
+      class="h-96 bg-cover bg-center bg-no-repeat"
       th:styleappend="${theme.config.banner.header_background_type == 'image' ? 'background-image: url(' + theme.config.banner.header_background_image + ');' : 'background: ' + theme.config.banner.header_background + ';'}"
     >
       <div class="container mx-auto flex h-full flex-col items-center justify-center gap-2 py-6">
-        <span class="text-5xl text-white" th:if="${not #strings.isEmpty(theme.config.banner.custom_title)}" th:text="${theme.config.banner.custom_title}"></span>
-        <span class="text-sm font-light text-white opacity-50" th:if="${not #strings.isEmpty(theme.config.banner.custom_sub_title)}"
-              th:text="${theme.config.banner.custom_sub_title}"></span>
-        <th:block th:if="${theme.config.banner.banner_search} and ${pluginFinder.available('PluginSearchWidget')}">
-          <div class="bg-white rounded-full w-full lg:w-1/2 dark:bg-zinc-900 relative pointer-events-auto" 
-               th:if="${pluginFinder.available('PluginSearchWidget')}">
-            <button type="button" @click="SearchWidget.open()" class="w-full flex items-center text-sm leading-6 text-zinc-400 rounded-full ring-1 ring-slate-900/10 shadow-sm py-1.5 pl-2 pr-3 hover:ring-slate-500 dark:bg-zinc-800 dark:highlight-white/5 dark:hover:bg-zinc-700">
-              <svg width="24" height="24" fill="none" aria-hidden="true" class="mr-3 flex-none"><path d="m19 19-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></circle></svg>
-              输入关键字
-            </button>
-          </div>
-          <div class="text-white text-sm font-light opacity-75 lg:w-1/2 lg:ml-20" 
-               th:if="${not #lists.isEmpty(theme.config.banner.tags)} and ${pluginFinder.available('PluginSearchWidget')}">
-            <p>热门查询：
-              <th:block th:each="tag,tagStat : ${theme.config.banner.tags}">
-                <th:block th:with="tagInfo = ${tagFinder.getByName(tag)}" th:if="${tagStat.index lt 3}">
-                  <span>
-                    <a class="pr-1 font-light hover:animate-pulse" th:text="${tagInfo.spec.displayName}" 
-                       th:href="@{${tagInfo.status.permalink}}"></a>
-                  </span>
+        <span
+          class="text-5xl text-white"
+          th:if="${not #strings.isEmpty(theme.config.banner.custom_title)}"
+          th:text="${theme.config.banner.custom_title}"
+        ></span>
+        <span
+          class="text-sm font-light text-white opacity-50"
+          th:if="${not #strings.isEmpty(theme.config.banner.custom_sub_title)}"
+          th:text="${theme.config.banner.custom_sub_title}"
+        ></span>
+        <th:block th:if="${theme.config.banner.search_method != 'none'}">
+          <th:block
+            th:if="${theme.config.banner.search_method == 'popup'} and ${pluginFinder.available('PluginSearchWidget')}"
+          >
+            <div class="pointer-events-auto relative w-full rounded-full bg-white dark:bg-zinc-900 lg:w-1/2">
+              <button
+                type="button"
+                @click="SearchWidget.open()"
+                class="dark:highlight-white/5 flex w-full items-center rounded-full py-1.5 pl-2 pr-3 text-sm leading-6 text-zinc-400 shadow-sm ring-1 ring-slate-900/10 hover:ring-slate-500 dark:bg-zinc-800"
+              >
+                <svg width="24" height="24" fill="none" aria-hidden="true" class="mr-3 flex-none">
+                  <path
+                    d="m19 19-3.5-3.5"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>
+                  <circle
+                    cx="11"
+                    cy="11"
+                    r="6"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></circle>
+                </svg>
+                输入关键字
+              </button>
+            </div>
+            <div
+              class="text-sm font-light text-white opacity-75 lg:ml-20 lg:w-1/2"
+              th:if="${not #lists.isEmpty(theme.config.banner.tags)}"
+            >
+              <p>
+                热门查询：
+                <th:block th:each="tag,tagStat : ${theme.config.banner.tags}">
+                  <th:block th:with="tagInfo = ${tagFinder.getByName(tag)}" th:if="${tagStat.index lt 3}">
+                    <span>
+                      <a
+                        class="pr-1 font-light hover:animate-pulse"
+                        th:text="${tagInfo.spec.displayName}"
+                        th:href="@{${tagInfo.status.permalink}}"
+                      ></a>
+                    </span>
+                  </th:block>
                 </th:block>
-              </th:block>
-            </p>
-          </div>
+              </p>
+            </div>
+          </th:block>
+          <th:block th:if="${theme.config.banner.search_method == 'page'}">
+            <div class="pointer-events-auto relative w-full rounded-full dark:bg-zinc-900 lg:w-1/2">
+              <input
+                id="search-value"
+                x-model="keys"
+                @keyup.enter="keywords"
+                class="dark:highlight-white/5 flex w-full items-center rounded-full bg-[#F1F3F4] py-1.5 pl-12 pr-3 text-sm leading-6 text-zinc-400 shadow-sm ring-1 ring-slate-900/10 focus:bg-white focus:shadow-2xl focus:outline-none focus:ring-2 dark:bg-zinc-800"
+                placeholder="输入关键字"
+              />
+              <template x-if="keys">
+                <button
+                  type="button"
+                  name="button"
+                  class="absolute right-[2px] top-[2px] h-[32px] w-[33px] rounded-3xl p-[5px] text-[#666] opacity-[.85] hover:bg-[#efebeb] dark:hover:bg-zinc-400"
+                  x-on:click="keyClear"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="icon icon-tabler icon-tabler-x"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    stroke-width="2"
+                    stroke="currentColor"
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M18 6l-12 12"></path>
+                    <path d="M6 6l12 12"></path>
+                  </svg>
+                </button>
+              </template>
+              <button
+                class="left absolute left-[2px] top-[2px] h-[32px] w-[33px] rounded-3xl p-[5px] text-[#666] opacity-[.85] hover:bg-[#efebeb] dark:hover:bg-zinc-400"
+                aria-label="搜索支持中心"
+                role="button"
+                x-on:click="keywords"
+              >
+                <svg width="24" height="24" fill="none" aria-hidden="true" class="flex-none">
+                  <path
+                    d="m19 19-3.5-3.5"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>
+                  <circle
+                    cx="11"
+                    cy="11"
+                    r="6"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></circle>
+                </svg>
+              </button>
+            </div>
+            <div
+              class="text-sm font-light text-white opacity-75 lg:ml-20 lg:w-1/2"
+              th:if="${not #lists.isEmpty(theme.config.banner.tags)}"
+            >
+              <p>
+                热门查询：
+                <th:block th:each="tag,tagStat : ${theme.config.banner.tags}">
+                  <th:block th:with="tagInfo = ${tagFinder.getByName(tag)}" th:if="${tagStat.index lt 3}">
+                    <span>
+                      <a
+                        class="pr-1 font-light hover:animate-pulse"
+                        th:text="${tagInfo.spec.displayName}"
+                        th:href="@{${tagInfo.status.permalink}}"
+                      ></a>
+                    </span>
+                  </th:block>
+                </th:block>
+              </p>
+            </div>
+          </th:block>
         </th:block>
       </div>
     </div>

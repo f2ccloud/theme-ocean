@@ -64,14 +64,16 @@ spec:
           label: Banner背景图片
           value: /themes/theme-ocean/assets/images/default-background.png
         - $formkit: radio
-          name: banner_search
-          label: 是否显示搜索框
-          value: true
+          name: search_method
+          value: page
+          label: 搜索形式
           options:
-            - label: 显示
-              value: true
+            - label: 页面
+              value: page
+            - label: 弹窗
+              value: popup
             - label: 隐藏
-              value: false
+              value: none
         - $formkit: tagCheckbox
           name: tags
           id: tags

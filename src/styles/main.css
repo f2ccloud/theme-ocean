@@ -1,5 +1,5 @@
 body {
-  font-family: Roboto,Helvetica,PingFang SC,Arial,sans-serif !important;
+  font-family: Roboto, Helvetica, PingFang SC, Arial, sans-serif !important;
   color: #333;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -40,7 +40,7 @@ body {
 }
 
 .text-overflow {
-  overflow: hidden; 
+  overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 1;
@@ -56,28 +56,28 @@ body {
 }
 
 /*a标签增加指上下划线*/
-.hover-within a{
-  position: relative
+.hover-within a {
+  position: relative;
 }
 
-.hover-within a::after{
+.hover-within a::after {
   --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255/var(--tw-bg-opacity));
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
   content: "";
   display: block;
   height: 1px;
   margin-top: 2px;
   position: absolute;
   right: 0;
-  transition: width .2s ease;
-  -webkit-transition: width .2s ease;
-  width: 0
+  transition: width 0.2s ease;
+  -webkit-transition: width 0.2s ease;
+  width: 0;
 }
 
 .hover-within a:hover::after {
-  background: #3296EF;
+  background: #3296ef;
   left: 0;
-  width: 100%
+  width: 100%;
 }
 
 /*a标签增加指上下划线*/

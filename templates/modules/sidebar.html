@@ -1,4 +1,4 @@
-<aside th:fragment="sidebar (prepend)" class="sticky top-20 flex-col gap-6 sm:flex" >
+<aside th:fragment="sidebar (prepend)" class="sticky top-20 flex-col gap-6 sm:flex">
   <th:block th:with="widgets = ${theme.config.sidebar.widgets} ">
     <th:block th:if="${prepend != null}">
       <th:block th:replace="${prepend}" />
@@ -13,7 +13,8 @@
             <a
               class="group inline-flex items-center gap-2 text-base text-zinc-600 transition-all hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-300"
               href="/"
-            >返回首页</a>
+              >返回首页</a
+            >
           </h2>
         </div>
       </div>

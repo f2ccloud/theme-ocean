@@ -1,44 +1,46 @@
 <th:block th:if="${theme.config.index.index_menu == true}">
-  <h2 class="text-3xl text-center font-light text-[#333] mt-16 mb-8 dark:text-zinc-200"
-      th:text="${theme.config.index.module_one}">
-  按产品浏览
+  <h2
+    class="mt-16 mb-8 text-center text-3xl font-light text-[#333] dark:text-zinc-200"
+    th:text="${theme.config.index.module_one}"
+  >
+    按产品浏览
   </h2>
-  <ul 
-    class="grid grid-cols-2 sm:grid-cols-2 xl:grid-cols-4 gap-2 sm:gap-3 xl:gap-4 font-semibold text-gray-900 text-center">
-    <th:block th:with="categories = ${categoryFinder.listAsTree()}">
-      <th:block th:each="categoryItem,stat : ${categories}">
-        <div class="duration-500 hover:-translate-y-2">
-          <hr class="border-2 rounded-xl mb-3"
-              th:style="'border-color:'+${#annotations.getOrDefault(categoryItem, 'color', '#0c7be0')}">
-<!--          th:classappend="'border-['+${#annotations.getOrDefault(categoryItem, 'color', '#0c7be0')}+']'"-->
-          <li
-            class="flex bg-white rounded-xl dark:bg-zinc-800 hover:shadow">
-            <a class="w-full pb-6"
-               th:if="${stat.index lt 4}"
-               th:href="@{${categoryItem.status.permalink}}">
-              <th:block th:if="${not #strings.isEmpty(categoryItem.spec.cover)}">
-                <img
-                  th:src="${categoryItem.spec.cover}"
-                  th:alt="${categoryItem.spec.displayName}"
-                  class="h-[3.5rem] w-[3.25rem] mx-auto my-2"
-                />
-              </th:block>
-              <p class="text-xl line-clamp-6 dark:text-zinc-200"
-                 th:style="'color:'+${#annotations.getOrDefault(categoryItem, 'color', '#0c7be0')}"
-                 th:text="${categoryItem.spec.displayName}"></p>
-              <p
-                class="text-sm font-light line-clamp-6 dark:text-zinc-200 text-[#8492a6]"
-                th:text="${categoryItem.spec.description}"></p>
+  <ul
+    class="grid grid-cols-2 gap-2 text-center font-semibold text-gray-900 sm:grid-cols-2 sm:gap-3 xl:grid-cols-4 xl:gap-4"
+    th:with="categories = ${categoryFinder.listAsTree()}"
+  >
+    <th:block th:each="categoryItem,stat : ${categories}">
+      <div class="duration-500 hover:-translate-y-2">
+        <hr
+          class="mb-3 rounded-xl border-2"
+          th:style="'border-color:'+${#annotations.getOrDefault(categoryItem, 'color', '#0c7be0')}"
+        />
+        <li class="flex rounded-xl bg-white hover:shadow dark:bg-zinc-800">
+          <a class="w-full pb-6" th:if="${stat.index lt 4}" th:href="@{${categoryItem.status.permalink}}">
+            <th:block th:if="${not #strings.isEmpty(categoryItem.spec.cover)}">
+              <img
+                th:src="${categoryItem.spec.cover}"
+                th:alt="${categoryItem.spec.displayName}"
+                class="mx-auto my-2 h-[3.5rem] w-[3.25rem]"
+              />
+            </th:block>
+            <p
+              class="text-xl line-clamp-6 dark:text-zinc-200"
+              th:style="'color:'+${#annotations.getOrDefault(categoryItem, 'color', '#0c7be0')}"
+              th:text="${categoryItem.spec.displayName}"
+            ></p>
+            <p
+              class="text-sm font-light text-[#8492a6] line-clamp-6 dark:text-zinc-200"
+              th:text="${categoryItem.spec.description}"
+            ></p>
+            <p class="h-7">
               <th:block th:if="${#annotations.contains(categoryItem, 'stars')}">
-               <p class="h-7"><img class="mx-auto pt-2" alt="GitHub stars" th:src="${#annotations.get(categoryItem, 'stars')}"></p> 
+                <img class="mx-auto pt-2" alt="GitHub stars" th:src="${#annotations.get(categoryItem, 'stars')}" />
               </th:block>
-              <th:block th:unless="${#annotations.contains(categoryItem, 'stars')}">
-                <p class="h-7"></p>
-              </th:block>
-            </a>
-          </li>
-        </div>
-      </th:block>
+            </p>
+          </a>
+        </li>
+      </div>
     </th:block>
   </ul>
 </th:block>

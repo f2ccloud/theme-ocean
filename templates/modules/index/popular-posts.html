@@ -2,59 +2,63 @@
   th:if="${theme.config.index.index_tag == true && ((theme.config.index.index_recommend == 'tag' && theme.config.index.tag != null) || (theme.config.index.index_recommend == 'categories' && theme.config.index.category != null))}"
   th:with="posts = ${theme.config.index.tag != null ? postFinder.listByTag(1,6,theme.config.index.tag) :  postFinder.listByCategory(1,6,theme.config.index.category)}"
 >
-  <h2 class="text-3xl text-center font-light text-[#333] mt-16 mb-8 dark:text-zinc-200"
-      th:text="${theme.config.index.module_there}">
-  推荐阅读
+  <h2
+    class="mt-16 mb-8 text-center text-3xl font-light text-[#333] dark:text-zinc-200"
+    th:text="${theme.config.index.module_there}"
+  >
+    推荐阅读
   </h2>
-  <ul
-    class="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-3 gap-4 sm:gap-6 xl:gap-8 font-semibold text-gray-900"
+  <ul class="grid grid-cols-2 gap-4 font-semibold text-gray-900 sm:grid-cols-3 sm:gap-6 xl:grid-cols-3 xl:gap-8">
+    <li
+      class="group rounded-xl bg-white p-3 px-5 duration-1000 hover:-translate-y-2 hover:shadow dark:bg-zinc-800"
+      th:each="post : ${posts}"
     >
-      <li class="group p-3 bg-white rounded-xl dark:bg-zinc-800 px-5 duration-1000 hover:-translate-y-2 hover:shadow" 
-          th:each="post : ${posts}">
-        <div
-          class="flex w-full flex-1 items-center justify-between gap-2 opacity-0 group-hover:opacity-100 transition duration-1000">
+      <div
+        class="flex w-full flex-1 items-center justify-between gap-2 opacity-0 transition duration-1000 group-hover:opacity-100"
+      >
+        <a
+          class="mr-20 rounded-xl px-2 text-xs font-light tabular-nums hover:text-gray-900"
+          th:style="'color:'+${#annotations.getOrDefault(post.categories[0], 'color', '#0c7be0')}+';background-color:'+${#annotations.getOrDefault(post.categories[0], 'color', '')}+'30'"
+          th:if="${#lists.size(post.categories)} gt 0"
+          th:href="@{${post.categories[0].status.permalink}}"
+          th:title="${post.categories[0].spec.displayName}"
+          th:text="${post.categories[0].spec.displayName}"
+        >
+        </a>
+        <span
+          class="truncate text-right text-sm font-normal"
+          th:style="'color:'+${#annotations.getOrDefault(post.categories[0], 'color', '#0c7be0')}"
+          th:text="${#dates.format(post.spec.publishTime,'yyyy年MM月dd日')}"
+        >
+        </span>
+      </div>
+      <div class="text-overflow-2 mt-2 mb-1 flex h-[59px] w-full flex-1 items-center">
+        <h3 class="hover-within text-lg font-medium">
           <a
-            class="mr-20 text-xs font-light tabular-nums hover:text-gray-900 rounded-xl px-2"
-            th:style="'color:'+${#annotations.getOrDefault(post.categories[0], 'color', '#0c7be0')}+';background-color:'+${#annotations.getOrDefault(post.categories[0], 'color', '')}+'30'"
-            th:if="${#lists.size(post.categories)} gt 0"
-            th:href="@{${post.categories[0].status.permalink}}"
-            th:title="${post.categories[0].spec.displayName}"
-            th:text="${post.categories[0].spec.displayName}"
+            class="line-clam1p-2 hover:text-zinc-500 dark:text-zinc-200"
+            th:href="@{${post.status.permalink}}"
+            th:title="${post.spec.title}"
           >
+            <div class="flex flex-row">
+              <img
+                th:src="${#theme.assets('/images/read.svg')}"
+                th:title="${post.owner.displayName}"
+                th:alt="${post.owner.displayName}"
+                class="mt-[0.175rem] h-5 w-5 drop-shadow-sm dark:border-zinc-700"
+              />
+              <span th:text="${post.spec.title}"></span>
+            </div>
           </a>
-          <span
-            class="truncate text-sm font-normal text-right"
-            th:style="'color:'+${#annotations.getOrDefault(post.categories[0], 'color', '#0c7be0')}"
-            th:text="${#dates.format(post.spec.publishTime,'yyyy年MM月dd日')}"
-          >
-          </span>
-        </div>
-        <div
-          class="text-overflow-2 flex w-full flex-1 items-center h-[59px] mt-2 mb-1">
-            <h3 
-              class="text-lg font-medium hover-within">
-                <a class="line-clam1p-2 hover:text-zinc-500 dark:text-zinc-200"
-                   th:href="@{${post.status.permalink}}"
-                   th:title="${post.spec.title}">
-                  <div class="flex flex-row">
-                    <img
-                      th:src="${#theme.assets('/images/read.svg')}"
-                      th:title="${post.owner.displayName}"
-                      th:alt="${post.owner.displayName}"
-                      class="h-5 w-5 mt-[0.175rem] drop-shadow-sm dark:border-zinc-700"
-                    />
-                    <span th:text="${post.spec.title}" ></span>
-                  </div>
-                </a>
-            </h3>
-        </div>
-        <div
-          class="flex w-full flex-1 items-center justify-between gap-2 opacity-0 group-hover:opacity-100 transition duration-1000">
-          <p
-            class="text-overflow-2 text-sm font-light line-clamp-6 text-[#929eaf] dark:text-zinc-200"
-            th:text="${post.status.excerpt}"></p>
-        </div>
-        
-      </li>
+        </h3>
+      </div>
+      <div
+        class="flex w-full flex-1 items-center justify-between gap-2 opacity-0 transition duration-1000 group-hover:opacity-100"
+      >
+        <p
+          class="text-overflow-2 text-sm font-light text-[#929eaf] line-clamp-6 dark:text-zinc-200"
+          th:text="${post.status.excerpt}"
+        ></p>
+      </div>
+    </li>
   </ul>
 </th:block>

@@ -1,41 +1,49 @@
-<footer th:if="${theme.config.footer.style == 'style_1'}" class="relative bg-zinc-100 pt-8 pb-6 mt-8 dark:bg-zinc-800">
+<footer th:if="${theme.config.footer.style == 'style_1'}" class="relative mt-8 bg-zinc-100 pt-8 pb-6 dark:bg-zinc-800">
   <div class="container mx-auto px-4">
     <div class="flex flex-wrap text-center lg:text-left">
-      <div class="w-full lg:w-4/12 px-4">
+      <div class="w-full px-4 lg:w-4/12">
         <a href="/">
-        <div class="flex flex-row ...">
-          <div>
-            <img
-              th:if="${not #strings.isEmpty(theme.config.footer.logo)} or ${not #strings.isEmpty(site.logo)}"
-              th:src="${theme.config.footer.logo ?: site.logo}"
-              class="mr-3 h-16 w-16 text-zinc-600 dark:text-zinc-200"
-              th:alt="${site.title}"
-            />
+          <div class="... flex flex-row">
+            <div>
+              <img
+                th:if="${not #strings.isEmpty(theme.config.footer.logo)} or ${not #strings.isEmpty(site.logo)}"
+                th:src="${theme.config.footer.logo ?: site.logo}"
+                class="mr-3 h-16 w-16 text-zinc-600 dark:text-zinc-200"
+                th:alt="${site.title}"
+              />
+            </div>
+            <div>
+              <h4
+                class="text-3xl font-semibold text-zinc-600 dark:text-zinc-200"
+                th:text="${theme.config.footer.title}"
+              ></h4>
+              <h5
+                class="mt-0 mb-2 text-base font-light text-zinc-600 dark:text-zinc-200"
+                th:text="${theme.config.footer.slogan}"
+              ></h5>
+            </div>
           </div>
-          <div>
-            <h4 class="text-3xl font-semibold text-zinc-600 dark:text-zinc-200" th:text="${theme.config.footer.title}">
-            </h4>
-            <h5 class="text-base mt-0 mb-2 text-zinc-600 dark:text-zinc-200 font-light"
-                th:text="${theme.config.footer.slogan}">
-            </h5>
-          </div>
-        </div>
         </a>
       </div>
-      <div class="w-full lg:w-8/12 px-4">
-        <div class="flex flex-wrap items-top mb-6" th:if="${not #lists.isEmpty(theme.config.footer.menus)}">
+      <div class="w-full px-4 lg:w-8/12">
+        <div class="items-top mb-6 flex flex-wrap" th:if="${not #lists.isEmpty(theme.config.footer.menus)}">
           <th:block th:each="menuName : ${theme.config.footer.menus}">
-            <div class="w-full sm:w-6/12 md:w-5/12 xl:w-3/12 pt-6 md:pl-4 ml-auto"
-                 th:with="menu = ${menuFinder.getByName(menuName.name)}">
-						<span class="block uppercase text-zinc-600 dark:text-zinc-200 text-xl font-semibold mb-2"
-                  th:text="${menu.spec.displayName}">
-						</span>
+            <div
+              class="ml-auto w-full pt-6 sm:w-6/12 md:w-5/12 md:pl-4 xl:w-3/12"
+              th:with="menu = ${menuFinder.getByName(menuName.name)}"
+            >
+              <span
+                class="mb-2 block text-xl font-semibold uppercase text-zinc-600 dark:text-zinc-200"
+                th:text="${menu.spec.displayName}"
+              >
+              </span>
               <ul class="list-unstyled hover-within" th:with="menuItems = ${menu.menuItems}">
                 <li th:each="menuItem : ${menuItems}">
                   <a
-                    class="text-zinc-600 hover:text-zinc-800 dark:text-zinc-200 font-light pb-2 text-sm"
+                    class="pb-2 text-sm font-light text-zinc-600 hover:text-zinc-800 dark:text-zinc-200"
                     th:href="@{${menuItem.status.href}}"
-                    th:text="${menuItem.status.displayName}">
+                    th:text="${menuItem.status.displayName}"
+                  >
                   </a>
                 </li>
               </ul>
@@ -47,9 +55,9 @@
   </div>
   <div>
     <hr class="my-6 border-zinc-200 dark:border-zinc-700 sm:mx-auto lg:my-8" />
-    <div class="flex flex-wrap items-center md:justify-between justify-center font-light">
-      <div class="w-full md:w-4/12 px-4 mx-auto text-center">
-        <span class="text-zinc-500 hover:text-zinc-900 dark:hover:text-whit">
+    <div class="flex flex-wrap items-center justify-center font-light md:justify-between">
+      <div class="mx-auto w-full px-4 text-center md:w-4/12">
+        <span class="dark:hover:text-whit text-zinc-500 hover:text-zinc-900">
           <a
             href="https://beian.miit.gov.cn/"
             class="hover:underline"
@@ -58,11 +66,10 @@
             th:text="${theme.config.beian.icp_text}"
           ></a>
         </span>
-        <div class="text-sm text-zinc-500 dark:text-zinc-300 xs:text-center font-light">
+        <div class="xs:text-center text-sm font-light text-zinc-500 dark:text-zinc-300">
           Copyright ©
           <th:block th:text="${#dates.format(new java.util.Date().getTime(), 'yyyy')}" />
-          <a href="/" class="hover:underline" th:text="${site.title}"></a>. All Rights Reserved.
-          <br/>Powered by
+          <a href="/" class="hover:underline" th:text="${site.title}"></a>. All Rights Reserved. <br />Powered by
           <a href="https://halo.run" class="hover:underline" target="_blank">Halo</a>.
         </div>
       </div>
@@ -184,17 +191,18 @@
   </span>
 </footer>
 
-
-<a 
-  class="hidden fixed m-0 bottom-24 right-10 w-10 h-10 leading-10 text-center rounded-full border-[1px] border-zinc-300 border-solid" 
-   id="back-to-top"
-   href="Javascript:scroll(0,0)">
-  <span class="i-tabler-chevron-up text-[#7ca5e7] text-lg transition-all">至顶</span>
+<a
+  class="fixed bottom-24 right-10 m-0 hidden h-10 w-10 rounded-full border-[1px] border-solid border-zinc-300 text-center leading-10"
+  id="back-to-top"
+  href="Javascript:scroll(0,0)"
+>
+  <span class="i-tabler-chevron-up text-lg text-[#7ca5e7] transition-all">至顶</span>
 </a>
 
 <a
-  class="hidden fixed m-0 bottom-24 right-10 w-10 h-10 leading-10 text-center rounded-full border-[1px] border-zinc-300 border-solid"
+  class="fixed bottom-24 right-10 m-0 hidden h-10 w-10 rounded-full border-[1px] border-solid border-zinc-300 text-center leading-10"
   id="back-to-down"
-  href="Javascript:scroll(0,document.documentElement.scrollHeight)">
-  <span class="i-tabler-chevron-down text-[#7ca5e7] text-lg transition-all">至底</span>
+  href="Javascript:scroll(0,document.documentElement.scrollHeight)"
+>
+  <span class="i-tabler-chevron-down text-lg text-[#7ca5e7] transition-all">至底</span>
 </a>

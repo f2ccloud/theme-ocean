@@ -8,18 +8,14 @@
       th:replace="~{modules/header :: header(isHome = false, cover = ${post.spec.cover}, title = ${post.spec.title})}"
     />
   </th:block>
-  
+
   <th:block th:fragment="content">
-    <div 
-      th:attr="x-data=|{readReminder: main.readTime()}|" 
-         class="rounded-xl bg-white p-4 dark:bg-zinc-800">
-        <template x-if="readReminder">
-          <div class="rounded bg-[#DEEaff] py-1" >
-            <span class="text-sm text-[#7ca5e7] ml-2 font-light"
-                  x-text="readReminder">
-            </span>
-          </div>
-        </template>
+    <div class="rounded-xl bg-white p-4 dark:bg-zinc-800" th:attr="x-data=|{readReminder: main.readTime()}|">
+      <template x-if="readReminder">
+        <div class="rounded bg-[#D8EAFD] py-1">
+          <span class="ml-2 text-sm font-light text-[#1077D1]" x-text="readReminder"> </span>
+        </div>
+      </template>
       <h1 class="my-3 text-4xl font-medium dark:text-zinc-50" th:text="${post.spec.title}"></h1>
       <div class="flex gap-2">
         <a
@@ -31,8 +27,11 @@
         >
         </a>
       </div>
-      <hr>
-      <div class="flex items-center justify-between my-2" th:attr="x-data=|postUtil('${post.metadata.name}','${post.stats.upvote}')|">
+      <hr />
+      <div
+        class="my-2 flex items-center justify-between"
+        th:attr="x-data=|postUtil('${post.metadata.name}','${post.stats.upvote}')|"
+      >
         <div class="inline-flex items-center justify-start gap-2">
           <img
             th:if="${not #strings.isEmpty(post.owner.avatar)}"
@@ -57,16 +56,18 @@
           </div>
         </div>
         <div class="inline-flex flex-row gap-1">
-          <div 
-            class="group cursor-pointer rounded-lg p-1">
+          <div class="group cursor-pointer rounded-lg p-1">
             <template x-if="liked">
-              <div class="i-tabler-heart-filled text-lg font-light text-[#B23A48] bg-[#B23A48]" 
-                   x-on:click="downvote"></div>
+              <div
+                class="i-tabler-heart-filled bg-[#B23A48] text-lg font-light text-[#B23A48]"
+                x-on:click="downvote"
+              ></div>
             </template>
             <template x-if="!liked">
-              <div 
-                class="i-tabler-heart text-lg font-light text-zinc-600 hover:text-[#B23A48] dark:text-zinc-100 active:animate-ping" 
-                   x-on:click="upvote"></div>
+              <div
+                class="i-tabler-heart text-lg font-light text-zinc-600 hover:text-[#B23A48] active:animate-ping dark:text-zinc-100"
+                x-on:click="upvote"
+              ></div>
             </template>
           </div>
           <a href="#comment" class="cursor-pointer rounded-lg p-1 hover:bg-zinc-100 dark:hover:bg-zinc-600">
@@ -82,7 +83,7 @@
         </div>
       </div>
       <th:block th:if="${not #strings.isEmpty(post.status.excerpt)}">
-        <div class="bg-gray-100 rounded-md p-4 text-sm font-light" th:text="${post.status.excerpt}"></div>
+        <div class="rounded-md bg-gray-100 p-4 text-sm font-light" th:text="${post.status.excerpt}"></div>
       </th:block>
       <article
         id="content"
@@ -130,7 +131,6 @@
         />
       </div>
     </div>
-
     <a
       sec:authorize="isAuthenticated()"
       th:href="'/console#/posts/editor?name='+${post.metadata.name}+'&returnToView=true'"
@@ -151,11 +151,13 @@
           <a
             class="group inline-flex items-center gap-2 text-base text-zinc-600 transition-all hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-300"
             href="/"
-          >返回首页 /</a>
+            >返回首页 /</a
+          >
           <a
             class="group inline-flex items-center gap-2 text-base text-zinc-600 transition-all hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-300"
-            href="javascript:;" onclick="javascript:history.back(-1)"
-          >返回上一页
+            href="javascript:;"
+            onclick="javascript:history.back(-1)"
+            >返回上一页
           </a>
         </h2>
       </div>
@@ -173,7 +175,7 @@
   <th:block th:fragment="sidebar">
     <th:block th:replace="~{modules/sidebar :: sidebar(prepend = ~{::sidebar_prepend})}"></th:block>
   </th:block>
-  
+
   <th:block th:fragment="footer">
     <script>
       main.generateToc();

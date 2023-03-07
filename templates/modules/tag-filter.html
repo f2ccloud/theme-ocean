@@ -8,7 +8,7 @@
       th:each="tagItem,tagStat: ${tags}"
       th:href="@{${tagItem.status.permalink}}"
       th:title="${tagItem.spec.displayName}"
-      class="rounded bg-gray-100 px-1 py-0.5 text-sm hover:underline hover:bg-gray-200 dark:bg-zinc-600 dark:text-zinc-50 dark:hover:bg-zinc-700 dark:hover:text-zinc-100"
+      class="rounded bg-gray-100 px-1 py-0.5 text-sm hover:bg-gray-200 hover:underline dark:bg-zinc-600 dark:text-zinc-50 dark:hover:bg-zinc-700 dark:hover:text-zinc-100"
       th:classappend="(${tag} and ${tag.metadata.name == tagItem.metadata.name}) or (not ${tag} and ${tagStat.index == 0}) ? '!bg-gray-200 dark:!bg-zinc-700 dark:!text-zinc-100 ring-2 ring-gray-300 dark:ring-zinc-600' : ''"
     >
       <th:block th:text="${tagItem.spec.displayName}" />

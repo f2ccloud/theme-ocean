@@ -3,70 +3,70 @@
   xmlns:th="https://www.thymeleaf.org"
   th:replace="~{modules/layout :: html(title = ${site.title}, header = null, content = ~{::content}, head = null, footer = null, sidebar = null, contentClass = null, isSidebar = true)}"
 >
-<th:block th:fragment="content">
-  <th:block th:replace="~{modules/category-filter}" />
+  <th:block th:fragment="content">
+    <th:block th:replace="~{modules/category-filter}" />
 
-  <div
-    id="post-list"
-    th:if="${archives.total gt 0}"
-    th:with="archivesItems=${archives.items},list_layout=${theme.config.layout.post_list_layout}"
-    class="mt-6 grid grid-cols-1 gap-6"
-    th:classappend="${list_layout == 'grid_3' ? 'md:grid-cols-2 xl:grid-cols-3' : ''} + ' ' + ${list_layout == 'grid_2' ? 'md:grid-cols-2' : ''}"
-  >
-    <th:block th:each="archive : ${archivesItems}">
-      <th:block th:each="month : ${archive.months}">
-        <th:block th:each="post : ${month.posts}">
-          <th:block
-            th:replace="~{modules/post-card :: post-card(${post},true,true,true,${list_layout == 'single' ? 'column' : 'row'})}"
-          />
+    <div
+      id="post-list"
+      th:if="${archives.total gt 0}"
+      th:with="archivesItems=${archives.items},list_layout=${theme.config.layout.post_list_layout}"
+      class="mt-6 grid grid-cols-1 gap-6"
+      th:classappend="${list_layout == 'grid_3' ? 'md:grid-cols-2 xl:grid-cols-3' : ''} + ' ' + ${list_layout == 'grid_2' ? 'md:grid-cols-2' : ''}"
+    >
+      <th:block th:each="archive : ${archivesItems}">
+        <th:block th:each="month : ${archive.months}">
+          <th:block th:each="post : ${month.posts}">
+            <th:block
+              th:replace="~{modules/post-card :: post-card(${post},true,true,true,${list_layout == 'single' ? 'column' : 'row'})}"
+            />
+          </th:block>
         </th:block>
       </th:block>
-    </th:block>
-  </div>
+    </div>
 
-  <div class="mt-9 flex items-center justify-end" th:if="${archives.hasPrevious() || archives.hasNext()}">
-    <ul th:attr="x-data=|pagination(${archives.page},${archives.totalPages},6)|" class="flex gap-2">
-      <li th:if="${archives.hasPrevious()}">
-        <a
-          class="rounded border border-[#686B74] py-2 px-3 text-sm tabular-nums text-[#686B74] hover:border-[#3296ef] hover:bg-[#3296ef] hover:text-white"
-          th:href="@{${archives.prevUrl}}"
-        >
-          上一页
-        </a>
-      </li>
-      <template x-for="item in items">
-        <li>
-          <template x-if="item === '...'">
-            <span
-              class="rounded border border-[#3296ef] bg-[#3296ef] py-2 px-3 text-sm tabular-nums text-white"
-              x-text="item"
-            >
-            </span>
-          </template>
-          <template x-if="item !== '...'">
-            <a
-              class="rounded border border-[#686B74] py-2 px-3 text-sm tabular-nums text-[#686B74] hover:border-[#3296ef] hover:bg-[#3296ef] hover:text-white"
-              x-text="item"
-              :class="{'border-[#3296ef] bg-[#3296ef] text-white':page===item}"
-              th:attr="'x-bind:href'=|'${site.url}/archives/page/'+item|"
-            >
-            </a>
-          </template>
+    <div class="mt-9 flex items-center justify-end" th:if="${archives.hasPrevious() || archives.hasNext()}">
+      <ul th:attr="x-data=|pagination(${archives.page},${archives.totalPages},6)|" class="flex gap-2">
+        <li th:if="${archives.hasPrevious()}">
+          <a
+            class="rounded border border-[#686B74] py-2 px-3 text-sm tabular-nums text-[#686B74] hover:border-[#3296ef] hover:bg-[#3296ef] hover:text-white"
+            th:href="@{${archives.prevUrl}}"
+          >
+            上一页
+          </a>
         </li>
-      </template>
-      <li th:if="${archives.hasNext()}">
-        <a
-          class="rounded border border-[#686B74] py-2 px-3 text-sm tabular-nums text-[#686B74] hover:border-[#3296ef] hover:bg-[#3296ef] hover:text-white"
-          th:href="@{${archives.nextUrl}}"
-        >
-          下一页
-        </a>
-      </li>
-    </ul>
-  </div>
+        <template x-for="item in items">
+          <li>
+            <template x-if="item === '...'">
+              <span
+                class="rounded border border-[#3296ef] bg-[#3296ef] py-2 px-3 text-sm tabular-nums text-white"
+                x-text="item"
+              >
+              </span>
+            </template>
+            <template x-if="item !== '...'">
+              <a
+                class="rounded border border-[#686B74] py-2 px-3 text-sm tabular-nums text-[#686B74] hover:border-[#3296ef] hover:bg-[#3296ef] hover:text-white"
+                x-text="item"
+                :class="{'border-[#3296ef] bg-[#3296ef] text-white':page===item}"
+                th:attr="'x-bind:href'=|'${site.url}/archives/page/'+item|"
+              >
+              </a>
+            </template>
+          </li>
+        </template>
+        <li th:if="${archives.hasNext()}">
+          <a
+            class="rounded border border-[#686B74] py-2 px-3 text-sm tabular-nums text-[#686B74] hover:border-[#3296ef] hover:bg-[#3296ef] hover:text-white"
+            th:href="@{${archives.nextUrl}}"
+          >
+            下一页
+          </a>
+        </li>
+      </ul>
+    </div>
 
-  <div th:if="${archives.total == 0}" class="mt-6 flex items-center justify-center">
-    <span class="text-sm font-light text-gray-600">当前没有文章</span>
-  </div>
-</th:block>
+    <div th:if="${archives.total == 0}" class="mt-6 flex items-center justify-center">
+      <span class="text-sm font-light text-gray-600">当前没有文章</span>
+    </div>
+  </th:block>
 </html>
