@@ -103,6 +103,19 @@ spec:
           value: 模块一
           label: 模块一名称
           help: 默认显示主菜单项
+        - $formkit: select
+          if: "$get(index_menu).value === true"
+          name: module_one_layout
+          label: 模块一布局
+          value: 4
+          options:
+            - label: 网格（一行三列）
+              value: 3
+            - label: 网格（一行四列）
+              value: 4
+            - label: 网格（一行五列）
+              value: 5
+          help: 默认显示一行
         - $formkit: radio
           name: index_theme
           id: index_theme

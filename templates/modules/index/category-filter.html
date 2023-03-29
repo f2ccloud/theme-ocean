@@ -6,17 +6,18 @@
     按产品浏览
   </h2>
   <ul
-    class="grid grid-cols-2 gap-2 text-center font-semibold text-gray-900 sm:grid-cols-2 sm:gap-3 xl:grid-cols-4 xl:gap-4"
-    th:with="categories = ${categoryFinder.listAsTree()}"
+    th:with="categories = ${categoryFinder.listAsTree()},list_layout=${theme.config.index.module_one_layout}"
+    class="grid grid-cols-2 gap-2 text-center font-semibold text-gray-900 sm:grid-cols-2 sm:gap-3 xl:gap-4"
+    th:classappend="${list_layout == 3 ? 'xl:grid-cols-3' : ''} + ' ' + ${list_layout == 4 ? 'xl:grid-cols-4' : ''}+ ' ' + ${list_layout == 5 ? 'xl:grid-cols-5' : ''}"
   >
     <th:block th:each="categoryItem,stat : ${categories}">
-      <div class="duration-500 hover:-translate-y-2">
+      <div class="duration-500 hover:-translate-y-2" th:if="${stat.index lt list_layout}">
         <hr
           class="mb-3 rounded-xl border-2"
           th:style="'border-color:'+${#annotations.getOrDefault(categoryItem, 'color', '#0c7be0')}"
         />
         <li class="flex rounded-xl bg-white hover:shadow dark:bg-zinc-800">
-          <a class="w-full pb-6" th:if="${stat.index lt 4}" th:href="@{${categoryItem.status.permalink}}">
+          <a class="w-full pb-6" th:href="@{${categoryItem.status.permalink}}">
             <th:block th:if="${not #strings.isEmpty(categoryItem.spec.cover)}">
               <img
                 th:src="${categoryItem.spec.cover}"

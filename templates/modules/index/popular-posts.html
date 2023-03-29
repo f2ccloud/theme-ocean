@@ -27,6 +27,7 @@
         </a>
         <span
           class="truncate text-right text-sm font-normal"
+          th:if="${#lists.size(post.categories)} gt 0"
           th:style="'color:'+${#annotations.getOrDefault(post.categories[0], 'color', '#0c7be0')}"
           th:text="${#dates.format(post.spec.publishTime,'yyyy年MM月dd日')}"
         >

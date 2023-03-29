@@ -1,6 +1,6 @@
 <header x-data="{ open : false }" th:with="menu = ${menuFinder.getPrimary()}">
   <div th:fragment="header (isHome, cover, title)">
-    <div id="header-menu" class="flex h-14 bg-white py-3 shadow-sm transition-all dark:bg-zinc-900">
+    <div id="header-menu" class="flex h-16 bg-white py-4 shadow-sm transition-all dark:bg-zinc-900">
       <div class="container mx-auto flex h-full justify-between" x-data="colorSchemeSwitcher">
         <div class="flex h-full items-center gap-6">
           <div class="mr-2 h-full">
@@ -10,7 +10,7 @@
                   th:if="${not #strings.isEmpty(theme.config.style.dark_logo)}"
                   th:src="${theme.config.style.dark_logo}"
                   th:alt="dark_logo"
-                  class="h-full w-full"
+                  class="max-h-16 w-full"
                 />
               </template>
               <template x-if="currentValue && currentValue == 'light'">
@@ -18,14 +18,14 @@
                   th:if="${not #strings.isEmpty(theme.config.style.light_logo)}"
                   th:src="${theme.config.style.light_logo}"
                   th:alt="light_logo"
-                  class="h-full w-full"
+                  class="max-h-16 w-full"
                 />
               </template>
               <img
                 th:if="${#strings.isEmpty(theme.config.style.dark_logo) and #strings.isEmpty(theme.config.style.light_logo) and not #strings.isEmpty(site.logo)}"
                 th:src="${site.logo}"
                 th:alt="Logo"
-                class="h-full w-full"
+                class="max-h-16 w-full"
               />
               <span
                 th:if="${#strings.isEmpty(theme.config.style.dark_logo) and #strings.isEmpty(theme.config.style.light_logo) and #strings.isEmpty(site.logo)}"
@@ -39,20 +39,25 @@
         <div class="flex items-center">
           <ul
             th:if="${menu != null} and ${not #lists.isEmpty(menu.menuItems)}"
-            class="hidden items-center gap-4 sm:flex"
+            class="hidden items-center gap-6 sm:flex"
           >
             <li
               th:each="menuItem : ${menu.menuItems}"
-              class="relative cursor-pointer text-sm font-medium transition-all"
+              class="relative cursor-pointer text-sm font-semibold transition-all"
               x-data="dropdown"
               @mouseenter="open()"
               @mouseleave="close()"
             >
               <a
-                class="text-zinc-600 hover:text-blue-600 dark:text-zinc-50 dark:hover:text-zinc-300"
+                class="flex items-center gap-1 text-[#202531] hover:text-blue-600 dark:text-zinc-50 dark:hover:text-zinc-300"
                 th:href="@{${menuItem.status.href}}"
-                th:text="${menuItem.status.displayName}"
-              ></a>
+              >
+                <span th:text="${menuItem.status.displayName}"></span>
+                <div
+                  th:if="${not #lists.isEmpty(menuItem.children)}"
+                  class="i-tabler-chevron-down text-sm transition-all duration-300"
+                ></div>
+              </a>
               <ul
                 th:if="${not #lists.isEmpty(menuItem.children)}"
                 @mouseenter="open()"
