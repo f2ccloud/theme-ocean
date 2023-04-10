@@ -250,15 +250,13 @@
               <p>
                 热门查询：
                 <th:block th:each="tag,tagStat : ${theme.config.banner.tags}">
-                  <th:block th:with="tagInfo = ${tagFinder.getByName(tag)}" th:if="${tagStat.index lt 3}">
-                    <span>
-                      <a
-                        class="pr-1 font-light hover:animate-pulse"
-                        th:text="${tagInfo.spec.displayName}"
-                        th:href="@{${tagInfo.status.permalink}}"
-                      ></a>
-                    </span>
-                  </th:block>
+                  <span th:with="tagInfo = ${tagFinder.getByName(tag)}" th:if="${tagStat.index lt 3}">
+                    <a
+                      class="pr-1 font-light hover:animate-pulse"
+                      th:text="${tagInfo.spec.displayName}"
+                      th:href="@{${tagInfo.status.permalink}}"
+                    ></a>
+                  </span>
                 </th:block>
               </p>
             </div>
