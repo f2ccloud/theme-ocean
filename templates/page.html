@@ -52,7 +52,7 @@
       </div>
       <h1 class="my-3 text-2xl font-medium dark:text-zinc-50" th:text="${singlePage.spec.title}"></h1>
       <article
-        class="prose prose-base mt-4 !max-w-none dark:prose-invert"
+        class="prose prose-base prose-tr:break-keep prose-th:border prose-th:border-solid prose-th:border-[var(--tw-prose-td-borders)] prose-td:border prose-td:border-solid prose-td:border-[var(--tw-prose-td-borders)] mt-4 !max-w-none dark:prose-invert"
         th:utext="${singlePage.content.content}"
       ></article>
       <hr class="my-10 dark:border-zinc-700" />
