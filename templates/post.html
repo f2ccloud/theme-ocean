@@ -16,7 +16,7 @@
           <span class="ml-2 text-sm font-light text-[#1077D1]" x-text="readReminder"> </span>
         </div>
       </template>
-      <h1 class="my-3 text-4xl font-medium dark:text-zinc-50" th:text="${post.spec.title}"></h1>
+      <h1 class="my-3 text-[1.625rem] font-medium dark:text-zinc-50" th:text="${post.spec.title}"></h1>
       <div class="flex gap-2">
         <a
           th:each="tag : ${post.tags}"
@@ -34,15 +34,16 @@
       >
         <div class="inline-flex items-center justify-start gap-2">
           <img
-            th:if="${not #strings.isEmpty(post.owner.avatar)}"
+            th:if="${not #strings.isEmpty(post.owner.avatar) and not theme.config.layout.hide_avatar}"
             th:src="${post.owner.avatar}"
             class="h-10 w-10 rounded-full"
             th:alt="${post.owner.displayName}"
           />
           <div class="flex flex-col gap-0.5">
             <span
+              th:if="${not theme.config.layout.hide_author}"
               class="text-sm font-semibold text-zinc-900 dark:text-zinc-100"
-              th:text="${post.owner.displayName}"
+              th:text="${not #strings.isEmpty(theme.config.layout.common_author) ? theme.config.layout.common_author : page.owner.displayName}"
             ></span>
             <div class="flex items-center gap-2 text-xs font-light text-zinc-600 dark:text-zinc-100">
               <span th:text="${'发布于 '+#dates.format(post.spec.publishTime,'yyyy-MM-dd')}"></span>
@@ -87,7 +88,7 @@
       </th:block>
       <article
         id="content"
-        class="prose prose-base prose-tr:break-keep prose-th:border prose-th:border-solid prose-th:border-[var(--tw-prose-td-borders)] prose-td:border prose-td:border-solid prose-td:border-[var(--tw-prose-td-borders)] mt-4 !max-w-none dark:prose-invert"
+        class="prose prose-base font-normal prose-h1:text-2xl prose-h2:text-xl prose-h3:text-lg prose-h4:text-base prose-tr:break-keep prose-th:border prose-th:border-solid prose-th:border-[var(--tw-prose-td-borders)] prose-td:border prose-td:border-solid prose-td:border-[var(--tw-prose-td-borders)] prose-pre:p-0 mt-4 !max-w-none dark:prose-invert"
         th:utext="${post.content.content}"
       ></article>
       <div
@@ -140,7 +141,6 @@
       <div class="i-tabler-edit !h-7 !w-7"></div>
     </a>
   </th:block>
-
   <th:block th:fragment="sidebar_prepend">
     <div
       class="w-full cursor-pointer overflow-hidden rounded-xl bg-white p-3 shadow transition-all duration-500 hover:shadow-md dark:bg-zinc-800"
@@ -151,26 +151,26 @@
           <a
             class="group inline-flex items-center gap-2 text-base text-zinc-600 transition-all hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-300"
             href="/"
-            >返回首页 /</a
+          >返回首页 /</a
           >
           <a
             class="group inline-flex items-center gap-2 text-base text-zinc-600 transition-all hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-300"
             href="javascript:;"
             onclick="javascript:history.back(-1)"
-            >返回上一页
+          >返回上一页
           </a>
         </h2>
       </div>
     </div>
     <div
-      class="w-full cursor-pointer overflow-hidden rounded-xl bg-white p-3 shadow transition-all duration-500 hover:shadow-md dark:bg-zinc-800"
-    >
-      <h2 class="inline-flex items-center gap-2 text-base dark:text-zinc-50">
-        <span class="i-tabler-list text-lg"></span>
-        目录
-      </h2>
-      <div class="toc mt-2"></div>
-    </div>
+        class="w-full cursor-pointer overflow-hidden rounded-xl bg-white p-3 shadow transition-all duration-500 hover:shadow-md dark:bg-zinc-800"
+      >
+        <h2 class="inline-flex items-center gap-2 text-base dark:text-zinc-50">
+          <span class="i-tabler-list text-lg"></span>
+          目录
+        </h2>
+        <div class="toc mt-2"></div>
+      </div>
   </th:block>
   <th:block th:fragment="sidebar">
     <th:block th:replace="~{modules/sidebar :: sidebar(prepend = ~{::sidebar_prepend})}"></th:block>
@@ -181,4 +181,5 @@
       main.generateToc();
     </script>
   </th:block>
+    
 </html>

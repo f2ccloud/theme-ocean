@@ -1,0 +1,12 @@
+spec:
+  targetRef:
+    group: content.halo.run
+    kind: Category
+  formSchema:
+    - $formkit: "color"
+      name: "color"
+      label: "字体颜色"
+apiVersion: v1alpha1
+kind: AnnotationSetting
+metadata:
+  generateName: annotation-

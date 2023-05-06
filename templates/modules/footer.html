@@ -191,8 +191,96 @@
   </span>
 </footer>
 
+
+
+<footer th:if="${theme.config.footer.style == 'style_4'}" class="mt-10 bg-[#202942] py-8 dark:bg-zinc-800">
+  <div class="container mx-auto px-4">
+    <div class="flex flex-wrap text-center lg:text-left">
+      <div class="w-full px-4 lg:w-4/12">
+        <a href="/">
+          <div class="grid grid-cols-12 gap-2">
+            <div class="col-span-2" >
+              <img
+                th:if="${not #strings.isEmpty(theme.config.footer.logo)} or ${not #strings.isEmpty(site.logo)}"
+                th:src="${theme.config.footer.logo ?: site.logo}"
+                class=" h-16 w-16"
+                th:alt="${site.title}"
+              />
+            </div>
+            <div class="col-span-10">
+              <h4
+                class="text-3xl font-semibold text-zinc-50 dark:text-zinc-200"
+                th:text="${theme.config.footer.title}"
+              ></h4>
+              <h5
+                class="mt-0 mb-2 text-base text-[#adb5bd] dark:text-zinc-200"
+                th:text="${theme.config.footer.slogan}"
+              ></h5>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="w-full px-4 lg:w-6/12">
+        <div class="items-top mb-6 flex flex-wrap" th:if="${not #lists.isEmpty(theme.config.footer.menus)}">
+          <th:block th:each="menuName : ${theme.config.footer.menus}">
+            <div
+              class="ml-auto w-full sm:w-6/12 md:w-5/12 md:pl-4 xl:w-3/12"
+              th:with="menu = ${menuFinder.getByName(menuName.name)}"
+            >
+              <span
+                class="mb-2 block text-xl font-semibold uppercase text-zinc-50 dark:text-zinc-200"
+                th:text="${menu.spec.displayName}"
+              >
+              </span>
+              <ul class="list-unstyled hover-within" th:with="menuItems = ${menu.menuItems}">
+                <li th:each="menuItem : ${menuItems}">
+                  <a
+                    class="pb-2 text-sm text-[#adb5bd] hover:text-zinc-100 dark:text-zinc-200"
+                    th:href="@{${menuItem.status.href}}"
+                    th:text="${menuItem.status.displayName}"
+                  >
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </th:block>
+        </div>
+      </div>
+      <div class="w-full px-4 text-center lg:w-2/12">
+        <div th:if="${not #strings.isEmpty(theme.config.footer.qrcode)}" classx="sm:w-full sm:text-center">
+          <h2 class="mb-6 text-lg font-semibold text-zinc-50">关注我们</h2>
+          <img th:src="${theme.config.footer.qrcode}" width="150px" class="mx-auto"/>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr class="my-6 border-slate-700 sm:mx-auto lg:my-8" />
+  <div>
+    <div class="flex flex-wrap items-center justify-center font-light md:justify-between">
+      <div class="mx-auto w-full px-4 text-center md:w-4/12">
+        <span class="dark:hover:text-whit hover:text-zinc-900 text-sm font-light text-[#adb5bd] sm:text-center">
+          <a
+            href="https://beian.miit.gov.cn/"
+            class="hover:underline"
+            target="_blank"
+            th:href="${theme.config.beian.icp_link}"
+            th:text="${theme.config.beian.icp_text}"
+          ></a>
+        </span>
+        <div class="text-sm text-[#adb5bd] sm:text-center font-light dark:text-zinc-300">
+          Copyright ©
+          <th:block th:text="${#dates.format(new java.util.Date().getTime(), 'yyyy')}" />
+          <a href="/" class="hover:underline" th:text="${site.title}"></a>. All Rights Reserved. <br />Powered by
+          <a href="https://halo.run" class="hover:underline" target="_blank">Halo</a>.
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
 <a
-  class="fixed bottom-24 right-10 m-0 hidden h-10 w-10 rounded-full border-[1px] border-solid border-zinc-300 text-center leading-10"
+  class="fixed bottom-[6.5rem] right-10 m-0 hidden h-10 w-10 rounded-full border-[1px] border-solid border-zinc-300 text-center leading-10"
   id="back-to-top"
   href="Javascript:scroll(0,0)"
 >
@@ -200,7 +288,7 @@
 </a>
 
 <a
-  class="fixed bottom-24 right-10 m-0 hidden h-10 w-10 rounded-full border-[1px] border-solid border-zinc-300 text-center leading-10"
+  class="fixed bottom-[6.5rem] right-10 m-0 hidden h-10 w-10 rounded-full border-[1px] border-solid border-zinc-300 text-center leading-10"
   id="back-to-down"
   href="Javascript:scroll(0,document.documentElement.scrollHeight)"
 >

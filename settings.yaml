@@ -28,6 +28,33 @@ spec:
               value: true
             - label: 隐藏
               value: false
+        - $formkit: radio
+          name: hide_avatar
+          id: hide_avatar
+          key: hide_avatar
+          label: 隐藏作者头像
+          value: false
+          options:
+            - label: 是
+              value: true
+            - label: 否
+              value: false
+        - $formkit: radio
+          name: hide_author
+          id: hide_author
+          key: hide_author
+          label: 隐藏作者名称
+          value: false
+          options:
+            - label: 是
+              value: true
+            - label: 否
+              value: false
+        - $formkit: text
+          if: "$get(hide_author).value === false"
+          name: common_author
+          label: 统一作者名称
+          help: "为空显示原文章作者"
 
     - group: banner
       label: Banner
@@ -102,7 +129,7 @@ spec:
           key: module_one
           value: 模块一
           label: 模块一名称
-          help: 默认显示主菜单项
+          help: 默认显示前四个分类
         - $formkit: select
           if: "$get(index_menu).value === true"
           name: module_one_layout
@@ -115,7 +142,7 @@ spec:
               value: 4
             - label: 网格（一行五列）
               value: 5
-          help: 默认显示一行
+          help: 默认显示一行四列
         - $formkit: radio
           name: index_theme
           id: index_theme
@@ -327,6 +354,8 @@ spec:
               value: style_2
             - label: 风格三
               value: style_3
+            - label: 风格四
+              value: style_4
         - $formkit: attachment
           name: logo
           label: Logo
@@ -342,7 +371,7 @@ spec:
           name: slogan
           id: slogan
           key: slogan
-          if: "$get(style).value === style_2 || $get(style).value === style_1"
+          if: "$get(style).value !== style_3"
           label: 标语
 
         - $formkit: menuRadio
@@ -353,7 +382,7 @@ spec:
           label: 右侧菜单
 
         - $formkit: repeater
-          if: "$get(style).value === style_2 || $get(style).value === style_1"
+          if: "$get(style).value !== style_3"
           name: menus
           id: menus
           key: menus
@@ -364,6 +393,12 @@ spec:
               name: name
               label: 菜单
               validation: "required"
+              
+        - $formkit: attachment
+          if: "$get(style).value === style_4"
+          name: qrcode
+          label: Qrcode
+          help: 关注二维码
 
         - $formkit: repeater
           name: social_media

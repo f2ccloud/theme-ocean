@@ -41,6 +41,7 @@
     <p class="font-sm font-light line-clamp-6 dark:text-zinc-200" th:text="${post.status.excerpt}"></p>
     <div class="mt-4 flex flex-1 items-center justify-start gap-2">
       <img
+        th:if="${not theme.config.layout.hide_avatar}"
         th:src="${post.owner.avatar ?: #theme.assets('/images/default-avatar.svg')}"
         th:title="${post.owner.displayName}"
         th:alt="${post.owner.displayName}"
@@ -48,8 +49,8 @@
       />
       <span
         class="text-sm font-medium text-zinc-900 dark:text-zinc-100"
-        th:if="${#strings.isEmpty(post.owner.avatar)}"
-        th:text="${post.owner.displayName}"
+        th:if="${not theme.config.layout.hide_author}"
+        th:text="${not #strings.isEmpty(theme.config.layout.common_author) ? theme.config.layout.common_author : post.owner.displayName}"
       ></span>
       <span
         class="text-sm tabular-nums text-zinc-600 dark:text-zinc-300"

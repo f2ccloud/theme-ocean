@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 const { Icons } = require("tailwindcss-plugin-icons");
+const plugin = require('tailwindcss/plugin')
 module.exports = {
   content: ["./templates/**/*.html", "./src/main.ts"],
   darkMode: "class",
@@ -8,6 +9,64 @@ module.exports = {
       lineClamp: {
         7: "7",
         8: "8",
+      },
+      typography: {
+        DEFAULT: {
+          css: {
+            h1 : {
+              marginTop: '0.25em !important',
+              marginBottom: '0.25em !important',
+            },
+            h2 : {
+              marginTop: '0.25em !important',
+              marginBottom: '0.25em !important',
+            },
+            h3 : {
+              marginTop: '0.25em !important',
+              marginBottom: '0.25em !important',
+            },
+            h4 : {
+              marginTop: '0.25em !important',
+              marginBottom: '0.25em !important',
+            },
+            ul : {
+              marginTop: '0.25em !important',
+              marginBottom: '0.25em !important',
+            },
+            li : {
+              marginTop: '0.25em !important',
+              marginBottom: '0.25em !important',
+            },
+            dl : {
+              marginTop: '0.25em !important',
+              marginBottom: '0.25em !important',
+            },
+            p : {
+              marginTop: '0.25em !important',
+              marginBottom: '0.25em !important',
+            },
+            img : {
+              marginTop: '0.5em !important',
+              marginBottom: '0.5em !important',
+            },
+            dd : {
+              marginTop: '0.25em !important',
+              marginBottom: '0.25em !important',
+            },
+            ol : {
+              marginTop: '0.25em !important',
+              marginBottom: '0.25em !important',
+            },
+            pre : {
+              marginTop: '0.25em !important',
+              marginBottom: '0.25em !important',
+            },
+            hr : {
+              marginTop: '1.25em !important',
+              marginBottom: '1.25em !important',
+            },
+          },
+        },
       },
     },
     container: {

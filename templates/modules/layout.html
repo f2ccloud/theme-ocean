@@ -14,7 +14,8 @@
       main.initColorScheme("[[${theme.config.style.color_scheme}]]",[[${theme.config.style.enable_change_color_scheme}]])
     </script>
   </head>
-  <body class="dark:bg-zinc-900" x-data="search" th:classappend="${isSidebar == false ? 'bg-[#F8F9FC]' : 'bg-zinc-0'}">
+  <body class="dark:bg-zinc-900" x-data="search" 
+        th:classappend="${isSidebar == false ? 'bg-[#F8F9FC]' : 'bg-[#F2F2F2]'}">
     <th:block th:if="${header != null}">
       <th:block th:replace="${header}" />
     </th:block>
@@ -54,7 +55,7 @@
       </div>
 
       <th:block th:if="${isSidebar == true}">
-        <div class="col-span-1 p-2">
+        <div class="col-span-1 px-2">
           <th:block th:if="${sidebar != null}">
             <th:block th:replace="${sidebar}" />
           </th:block>

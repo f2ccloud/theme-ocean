@@ -17,7 +17,7 @@
         class="flex w-full flex-1 items-center justify-between gap-2 opacity-0 transition duration-1000 group-hover:opacity-100"
       >
         <a
-          class="mr-20 rounded-xl px-2 text-xs font-light tabular-nums hover:text-gray-900"
+          class="mr-2 rounded-xl px-2 text-xs font-light tabular-nums hover:text-gray-900"
           th:style="'color:'+${#annotations.getOrDefault(post.categories[0], 'color', '#0c7be0')}+';background-color:'+${#annotations.getOrDefault(post.categories[0], 'color', '')}+'30'"
           th:if="${#lists.size(post.categories)} gt 0"
           th:href="@{${post.categories[0].status.permalink}}"
