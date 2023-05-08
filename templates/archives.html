@@ -48,7 +48,7 @@
                 class="rounded border border-[#686B74] py-2 px-3 text-sm tabular-nums text-[#686B74] hover:border-[#3296ef] hover:bg-[#3296ef] hover:text-white"
                 x-text="item"
                 :class="{'border-[#3296ef] bg-[#3296ef] text-white':page===item}"
-                th:attr="'x-bind:href'=|'${site.url}/archives/page/'+item|"
+                th:attr="'x-bind:href'=|'/archives/page/'+item|"
               >
               </a>
             </template>
