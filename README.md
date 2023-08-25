@@ -1,37 +1,21 @@
-# 知识库【theme-ocean】
+# Theme Ocean - Halo 开源建站工具知识库主题
 
-![Ocean](./screenshot.jpg)
+[主题预览](https://kb.fit2cloud.com)
 
-Halo 2.0 知识库主题。
+Theme Ocean 是适用于开源建站工具 [Halo](https://halo.run) 的一款知识库主题，适合企业用于对外公开的产品知识库场景。
 
-主题基于 Halo2.0 默认主题 [theme-earth](https://github.com/halo-dev/theme-earth.git)
+主题基于 Halo 默认主题 [Earth](https://github.com/halo-dev/theme-earth.git) 的基础上进行开发。
 
-## 开发
+## 特性
 
-```bash
-git clone git@github.com:f2ccloud/theme-ocean.git ~/halo2-dev/themes/theme-ocean
-```
+- 简洁大方的设计
+- 全局搜索支持
+- 亮色暗色模式切换
+- 丰富灵活的主题设置
 
-```bash
-cd ~/halo2-dev/themes/theme-ocean
-```
+## 使用方式
+1. 下载，前往版本页面安装最新的版本即可，后续有更新也会在此页面发布。
+2. 安装和更新方式可参考：https://docs.halo.run/user-guide/themes
 
-```bash
-pnpm install 
-```
-
-```bash
-pnpm dev
-```
-
-主题开发文档可查阅：<https://docs.halo.run/developer-guide/theme/prepare>
-
-## 构建
-
-> 如果你使用的是 Windows 操作系统，请安装 `make` 命令并在 Git Bash 或 WSL 中执行。
-
-```bash
-make build
-```
-
-然后将 `dist` 目录压缩成 `ZIP` 格式压缩包即可在 Halo 后台上传安装。
+## 其他
+- [开发相关](./DEVELOP.md)
