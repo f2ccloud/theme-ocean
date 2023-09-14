@@ -172,7 +172,7 @@ spec:
           name: index_tag
           id: index_tag
           key: index_tag
-          label: 是否显示模块二
+          label: 是否显示模块三
           value: false
           options:
             - label: 显示
