@@ -23,7 +23,7 @@
     </div>
 
     <div class="mt-9 flex items-center justify-end" th:if="${posts.hasPrevious() || posts.hasNext()}">
-      <ul th:attr="x-data=|pagination(${posts.page},${posts.totalPages},6)|" class="flex gap-2">
+      <ul th:attr="x-data=|pagination(${posts.page},${posts.totalPages},7)|" class="flex gap-2">
         <li th:if="${posts.hasPrevious()}">
           <a
             class="rounded border border-[#686B74] py-2 px-3 text-sm tabular-nums text-[#686B74] hover:border-[#3296ef] hover:bg-[#3296ef] hover:text-white"
