@@ -5,6 +5,7 @@ export default (postId: any, likeNum: string) => ({
   likeNum: likeNum,
   loading: false,
   liked: false,
+  noLiked: false,
   get upvote() {
     this.init();
     if (this.loading || this.liked) return;
@@ -26,6 +27,7 @@ export default (postId: any, likeNum: string) => ({
       )
       .then(() => {
         this.liked = true;
+        this.noLiked = false
         this.loading = false;
         localStorage.setItem("likeNum:" + this.postId, String(Number(this.likeNum) + 1));
         this.likeNum = String(Number(this.likeNum) + 1);
@@ -57,7 +59,8 @@ export default (postId: any, likeNum: string) => ({
         this.likeNum = String(num < 0 ? 0 : num);
         localStorage.removeItem("likeNum:" + this.postId);
         this.loading = false;
-        this.liked = !this.liked;
+        this.liked = false;
+        this.noLiked = true
       })
       .catch(() => {
         this.loading = false;
@@ -67,6 +70,7 @@ export default (postId: any, likeNum: string) => ({
     if (this.likeNumExists(this.postId) !== null && Number(this.likeNumExists(this.postId)) > 0) {
       this.liked = true;
     }
+    this.noLiked = false;
     return this.liked;
   },
   likeNumExists(id: any) {
