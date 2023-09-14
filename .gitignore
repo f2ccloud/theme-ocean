@@ -23,4 +23,6 @@ node_modules
 
 .gradle
 build
+dist
+dist.zip
 
