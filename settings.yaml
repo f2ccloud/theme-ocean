@@ -241,6 +241,31 @@ spec:
           label: 允许访客切换配色
           value: true
 
+        - $formkit: radio
+          name: login_info
+          id: login_info
+          key: login_info
+          label: 显示登录信息
+          value: false
+          options:
+            - label: 显示
+              value: true
+            - label: 隐藏
+              value: false
+              
+        - $formkit: radio
+          if: "$get(login_info).value === true"
+          name: show_content
+          label: 显示内容
+          value: all
+          options:
+            - label: 头像和名称
+              value: all
+            - label: 头像
+              value: avatar
+            - label: 名称
+              value: user-name
+
     - group: sidebar
       label: 侧边栏
       formSchema:
