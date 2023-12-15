@@ -112,6 +112,104 @@
                 <div class="i-tabler-search text-lg"></div>
               </a>
             </li>
+            <li
+              x-data="dropdown"
+              th:if="${theme.config.style.login_info == true}"
+              class="relative cursor-pointer transition-all"
+              th:with="currentUser = ${contributorFinder.getContributor(#authentication.name)}"
+              @mouseenter="open()"
+              @mouseleave="close()"
+            >
+              <div>
+                <div
+                  sec:authorize="isAuthenticated()"
+                  class="flex items-center border-l space-x-2 pl-4 text-zinc-600 hover:text-blue-600 dark:text-slate-100"
+                  th:classappend="${theme.config.style.show_content == 'avatar'? 'w-[40px]' : 'sm:w-[140px] w-[40px]'}"
+                >
+                  <img
+                    class="h-5 w-5 rounded-full"
+                    th:if="${theme.config.style.show_content == 'all' or theme.config.style.show_content == 'avatar'}"
+                    th:src="${currentUser.avatar ?: #theme.assets('/images/default-avatar.svg')}"
+                    th:alt="${currentUser.displayName}"
+                  />
+                  <span
+                    th:if="${theme.config.style.show_content == 'all' or theme.config.style.show_content == 'user-name'}"
+                    class="truncate text-sm"
+                    th:classappend="${theme.config.style.show_content == 'all' ? 'hidden sm:block' : ''}"
+                    th:text="${currentUser.displayName}"
+                  ></span>
+                </div>
+                <div
+                  sec:authorize="isAnonymous()"
+                  class="flex items-center w-[40px] border-l space-x-2 pl-4 text-zinc-600 hover:text-blue-600 dark:text-slate-100"
+                >
+                  <img
+                    class="h-5 w-5 rounded-full"
+                    th:src="${#theme.assets('/images/default-avatar.svg')}"
+                    th:alt="${currentUser.displayName}"
+                  />
+                </div>
+                <ul
+                  @mouseenter="open()"
+                  @mouseleave="close()"
+                  x-show="show"
+                  x-transition:enter="transition ease-out duration-100"
+                  x-transition:enter-start="transform opacity-0 scale-95"
+                  x-transition:enter-end="transform opacity-100 scale-100"
+                  x-transition:leave="transition ease-in duration-75"
+                  x-transition:leave-start="transform opacity-100 scale-100"
+                  x-transition:leave-end="transform opacity-0 scale-95"
+                  class="absolute right-0 z-10 mt-2 w-40 divide-y divide-gray-50 overflow-hidden rounded bg-white shadow dark:divide-zinc-600 dark:bg-zinc-700"
+                >
+                  <li
+                    sec:authorize="isAuthenticated()"
+                    class="flex w-full items-center text-left text-sm hover:bg-gray-50 dark:hover:bg-zinc-600"
+                  >
+                    <a
+                      class="h-full w-full truncate px-4 py-2 text-gray-600 hover:text-blue-600 dark:text-zinc-50 dark:hover:text-gray-300"
+                      href="/uc"
+                      target="_blank"
+                    >
+                      个人资料
+                    </a>
+                  </li>
+                  <li
+                    sec:authorize="isAuthenticated()"
+                    class="flex w-full items-center text-left text-sm hover:bg-gray-50 dark:hover:bg-zinc-600"
+                  >
+                    <a
+                      class="h-full w-full truncate px-4 py-2 text-gray-600 hover:text-blue-600 dark:text-zinc-50 dark:hover:text-gray-300"
+                      href="/console"
+                      target="_blank"
+                    >
+                      控制台
+                    </a>
+                  </li>
+                  <li
+                    sec:authorize="isAuthenticated()"
+                    class="flex w-full items-center text-left text-sm hover:bg-gray-50 dark:hover:bg-zinc-600"
+                  >
+                    <a
+                      class="h-full w-full truncate px-4 py-2 text-gray-600 hover:text-blue-600 dark:text-zinc-50 dark:hover:text-gray-300"
+                      href="/logout"
+                    >
+                      退出登录
+                    </a>
+                  </li>
+                  <li
+                    sec:authorize="isAnonymous()"
+                    class="flex w-full items-center text-left text-sm hover:bg-gray-50 dark:hover:bg-zinc-600"
+                  >
+                    <a
+                      class="h-full w-full truncate px-4 py-2 text-gray-600 hover:text-blue-600 dark:text-zinc-50 dark:hover:text-gray-300"
+                      href="/console/login"
+                    >
+                      登录
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
           </ul>
         </div>
       </div>
@@ -123,7 +221,7 @@
     >
       <div class="container mx-auto flex h-full flex-col items-center justify-center gap-2 py-6">
         <span
-          class="text-5xl text-white"
+          class="sm:text-5xl text-white text-4xl"
           th:if="${not #strings.isEmpty(theme.config.banner.custom_title)}"
           th:text="${theme.config.banner.custom_title}"
         ></span>
