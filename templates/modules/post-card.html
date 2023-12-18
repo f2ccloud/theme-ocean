@@ -30,6 +30,7 @@
       class="flex flex-wrap items-center gap-2"
     >
       <a
+        th:if="${#lists.size(post.categories)} gt 0"
         th:href="@{${post.categories[0].status.permalink}}"
         th:title="${post.categories[0].spec.displayName}"
         th:text="${post.categories[0].spec.displayName}"
@@ -38,6 +39,7 @@
       >
       </a>
       <a
+        th:if="${#lists.size(post.tags)} gt 0"
         th:each="tag : ${post.tags}"
         th:href="@{${tag.status.permalink}}"
         th:title="${tag.spec.displayName}"
