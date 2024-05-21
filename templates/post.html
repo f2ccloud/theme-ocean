@@ -125,6 +125,33 @@
         </div>
       </div>
       <hr class="my-10 dark:border-zinc-700" />
+      <div class="text-center" th:attr="x-data=|postUtil('${post.metadata.name}','${post.stats.upvote}')|">
+        是否对你有帮助?
+         <template x-if="!liked && !noLiked">
+          <button
+            class="i-tabler-thumb-up !h-8 text-lg font-light text-zinc-600 hover:text-[#B23A48] active:animate-ping dark:text-zinc-100"
+            x-on:click="upvote"
+          >3</button>
+         </template>
+        <template x-if="!liked && !noLiked">
+          <button
+            class="i-tabler-thumb-down !h-8 text-lg font-light text-zinc-600 hover:text-[#B23A48] active:animate-ping dark:text-zinc-100"
+            x-on:click="downvote"
+          >4</button>
+         </template>
+        <template x-if="liked">
+          <button
+            class="i-tabler-thumb-up !h-8 bg-[#B23A48] text-lg font-light text-[#B23A48]"
+            x-on:click="downvote"
+          >1</button>
+        </template>
+        <template x-if="noLiked">
+          <button
+            class="i-tabler-thumb-down !h-8 bg-[#B23A48] text-lg font-light text-zinc-600 hover:text-[#B23A48] active:animate-ping dark:text-zinc-100"
+            x-on:click="upvote"
+          >2</button>
+        </template>
+      </div>
       <!-- https://github.com/halo-sigs/plugin-comment-widget -->
       <div th:if="${site.comment.enable} and ${pluginFinder.available('PluginCommentWidget')}">
         <h2 class="mb-2 text-base font-medium text-zinc-900 dark:text-zinc-50">评论</h2>
