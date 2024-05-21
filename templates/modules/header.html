@@ -28,7 +28,7 @@
                 class="max-h-16 w-full"
               />
               <span
-                th:if="${#strings.isEmpty(theme.config.style.dark_logo) and #strings.isEmpty(theme.config.style.light_logo) and #strings.isEmpty(site.logo)}"
+                th:if="${#strings.isEmpty(theme.config.style.dark_logo) and #strings.isEmpty(theme.config.style.light_logo) and #strings.isEmpty(site.logo) and not #strings.isEmpty(site.title) }"
                 id="site-title"
                 class="text-lg font-medium text-zinc-900 dark:text-zinc-100"
                 th:text="${site.title}"

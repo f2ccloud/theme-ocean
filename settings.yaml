@@ -129,7 +129,7 @@ spec:
           key: module_one
           value: 模块一
           label: 模块一名称
-          help: 默认显示前四个分类
+          help: 默认显示前四个分类，字体颜色和stars数需配置分类元数据，增加 color 和 stars
         - $formkit: select
           if: "$get(index_menu).value === true"
           name: module_one_layout
@@ -161,6 +161,7 @@ spec:
           key: module_two
           value: 模块二
           label: 模块二名称
+          help: "模块二图标需配置菜单元数据，增加 icon"
         - $formkit: menuRadio
           if: "$get(index_theme).value === true"
           name: menu
