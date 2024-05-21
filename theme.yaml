@@ -13,5 +13,5 @@ spec:
   repo: https://github.com/f2ccloud/theme-ocean.git
   settingName: "theme-ocean-setting"
   configMapName: "theme-ocean-configMap"
-  version: 1.4.1
+  version: 1.4.2
   require: ">=2.6.0"
