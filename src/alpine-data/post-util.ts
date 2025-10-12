@@ -27,7 +27,7 @@ export default (postId: any, likeNum: string) => ({
       )
       .then(() => {
         this.liked = true;
-        this.noLiked = false
+        this.noLiked = false;
         this.loading = false;
         localStorage.setItem("likeNum:" + this.postId, String(Number(this.likeNum) + 1));
         this.likeNum = String(Number(this.likeNum) + 1);
@@ -60,7 +60,7 @@ export default (postId: any, likeNum: string) => ({
         localStorage.removeItem("likeNum:" + this.postId);
         this.loading = false;
         this.liked = false;
-        this.noLiked = true
+        this.noLiked = true;
       })
       .catch(() => {
         this.loading = false;

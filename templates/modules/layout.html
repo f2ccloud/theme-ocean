@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html th:lang="${#locale.toLanguageTag}" th:fragment="html (title,header,content,head,footer,sidebar,contentClass,isSidebar)">
+<html
+  th:lang="${#locale.toLanguageTag}"
+  th:fragment="html (title,header,content,head,footer,sidebar,contentClass,isSidebar)"
+>
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
@@ -14,10 +17,7 @@
       main.initColorScheme("[[${theme.config.style.color_scheme}]]",[[${theme.config.style.enable_change_color_scheme}]])
     </script>
   </head>
-  <body
-    class="dark:bg-zinc-900"
-    th:classappend="${isSidebar == false ? 'bg-[#F8F9FC]' : 'bg-[#F2F2F2]'}"
-  >
+  <body class="dark:bg-zinc-900" th:classappend="${isSidebar == false ? 'bg-[#F8F9FC]' : 'bg-[#F2F2F2]'}">
     <th:block th:if="${header != null}">
       <th:block th:replace="${header}" />
     </th:block>

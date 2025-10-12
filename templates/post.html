@@ -17,7 +17,7 @@
         </div>
       </template>
       <h1 class="my-3 text-[1.625rem] font-medium dark:text-zinc-50" th:text="${post.spec.title}"></h1>
-      <div class="flex gap-2 flex-wrap my-3">
+      <div class="my-3 flex flex-wrap gap-2">
         <a
           th:each="tag : ${post.tags}"
           th:href="@{${tag.status.permalink}}"
@@ -40,7 +40,7 @@
             th:alt="${post.owner.displayName}"
           />
           <div class="flex flex-col gap-0.5">
-            <div class="flex items-center gap-2 text-xs font-light text-zinc-600 dark:text-zinc-100 flex-wrap">
+            <div class="flex flex-wrap items-center gap-2 text-xs font-light text-zinc-600 dark:text-zinc-100">
               <span
                 th:unless="${theme.config.layout.hide_author}"
                 class="text-sm font-semibold text-zinc-900 dark:text-zinc-100"
@@ -71,7 +71,11 @@
               ></div>
             </template>
           </div>
-          <a th:if="${site.comment.enable}" href="#comment" class="cursor-pointer rounded-lg p-1 hover:bg-zinc-100 dark:hover:bg-zinc-600">
+          <a
+            th:if="${site.comment.enable}"
+            href="#comment"
+            class="cursor-pointer rounded-lg p-1 hover:bg-zinc-100 dark:hover:bg-zinc-600"
+          >
             <div
               class="i-tabler-message-circle text-lg text-zinc-600 hover:text-zinc-900 dark:text-zinc-100 dark:hover:text-zinc-50"
             ></div>
@@ -88,7 +92,7 @@
       </th:block>
       <article
         id="content"
-        class="prose prose-base font-normal prose-h1:text-2xl prose-h2:text-xl prose-h3:text-lg prose-h4:text-base prose-tr:break-keep prose-th:p-2 prose-th:border prose-th:border-solid prose-th:bg-neutral-300 prose-th:dark:bg-neutral-400 prose-th:border-[var(--tw-prose-td-borders)] prose-td:p-2 prose-td:border prose-td:border-solid prose-td:border-[var(--tw-prose-td-borders)] prose-pre:p-0 mt-4 !max-w-none dark:prose-invert"
+        class="prose prose-base mt-4 !max-w-none font-normal prose-h1:text-2xl prose-h2:text-xl prose-h3:text-lg prose-h4:text-base prose-pre:p-0 prose-tr:break-keep prose-th:border prose-th:border-solid prose-th:border-[var(--tw-prose-td-borders)] prose-th:bg-neutral-300 prose-th:p-2 prose-td:border prose-td:border-solid prose-td:border-[var(--tw-prose-td-borders)] prose-td:p-2 dark:prose-invert prose-th:dark:bg-neutral-400"
         th:utext="${post.content.content}"
       ></article>
       <hr class="my-10 dark:border-zinc-700" />
@@ -100,7 +104,7 @@
           <a
             th:if="${postCursor.hasPrevious()}"
             role="navigation"
-            class="group inline-flex items-center gap-2 truncate text-base hover:text-[#567AAC] text-zinc-700 dark:text-zinc-100 dark:hover:text-zinc-200"
+            class="group inline-flex items-center gap-2 truncate text-base text-zinc-700 hover:text-[#567AAC] dark:text-zinc-100 dark:hover:text-zinc-200"
             th:href="@{${postCursor.previous.status.permalink}}"
             th:title="${postCursor.previous.spec.title}"
           >
@@ -109,12 +113,12 @@
             <span th:text="${#strings.abbreviate(postCursor.previous.spec.title,25)}"></span>
           </a>
         </div>
-        
+
         <div class="flex justify-end">
           <a
             th:if="${postCursor.hasNext()}"
             role="navigation"
-            class="group inline-flex items-center gap-2 truncate text-base hover:text-[#567AAC] text-zinc-700 dark:text-zinc-100 dark:hover:text-zinc-200"
+            class="group inline-flex items-center gap-2 truncate text-base text-zinc-700 hover:text-[#567AAC] dark:text-zinc-100 dark:hover:text-zinc-200"
             th:href="@{${postCursor.next.status.permalink}}"
             th:title="${postCursor.next.spec.title}"
           >
@@ -127,29 +131,34 @@
       <hr class="my-10 dark:border-zinc-700" />
       <div class="text-center" th:attr="x-data=|postUtil('${post.metadata.name}','${post.stats.upvote}')|">
         是否对你有帮助?
-         <template x-if="!liked && !noLiked">
+        <template x-if="!liked && !noLiked">
           <button
             class="i-tabler-thumb-up !h-8 text-lg font-light text-zinc-600 hover:text-[#B23A48] active:animate-ping dark:text-zinc-100"
             x-on:click="upvote"
-          >3</button>
-         </template>
+          >
+            3
+          </button>
+        </template>
         <template x-if="!liked && !noLiked">
           <button
             class="i-tabler-thumb-down !h-8 text-lg font-light text-zinc-600 hover:text-[#B23A48] active:animate-ping dark:text-zinc-100"
             x-on:click="downvote"
-          >4</button>
-         </template>
+          >
+            4
+          </button>
+        </template>
         <template x-if="liked">
-          <button
-            class="i-tabler-thumb-up !h-8 bg-[#B23A48] text-lg font-light text-[#B23A48]"
-            x-on:click="downvote"
-          >1</button>
+          <button class="i-tabler-thumb-up !h-8 bg-[#B23A48] text-lg font-light text-[#B23A48]" x-on:click="downvote">
+            1
+          </button>
         </template>
         <template x-if="noLiked">
           <button
             class="i-tabler-thumb-down !h-8 bg-[#B23A48] text-lg font-light text-zinc-600 hover:text-[#B23A48] active:animate-ping dark:text-zinc-100"
             x-on:click="upvote"
-          >2</button>
+          >
+            2
+          </button>
         </template>
       </div>
       <!-- https://github.com/halo-sigs/plugin-comment-widget -->
@@ -182,26 +191,26 @@
           <a
             class="group inline-flex items-center gap-2 text-base text-zinc-600 transition-all hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-300"
             href="/"
-          >返回首页 /</a
+            >返回首页 /</a
           >
           <a
             class="group inline-flex items-center gap-2 text-base text-zinc-600 transition-all hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-300"
             href="javascript:;"
             onclick="javascript:history.back(-1)"
-          >返回上一页
+            >返回上一页
           </a>
         </h2>
       </div>
     </div>
     <div
-        class="w-full cursor-pointer overflow-hidden rounded-xl bg-white p-3 shadow transition-all duration-500 hover:shadow-md dark:bg-zinc-800"
-      >
-        <h2 class="inline-flex items-center gap-2 text-base dark:text-zinc-50">
-          <span class="i-tabler-list text-lg"></span>
-          目录
-        </h2>
-        <div class="toc mt-2"></div>
-      </div>
+      class="w-full cursor-pointer overflow-hidden rounded-xl bg-white p-3 shadow transition-all duration-500 hover:shadow-md dark:bg-zinc-800"
+    >
+      <h2 class="inline-flex items-center gap-2 text-base dark:text-zinc-50">
+        <span class="i-tabler-list text-lg"></span>
+        目录
+      </h2>
+      <div class="toc mt-2"></div>
+    </div>
   </th:block>
   <th:block th:fragment="sidebar">
     <th:block th:replace="~{modules/sidebar :: sidebar(prepend = ~{::sidebar_prepend})}"></th:block>
@@ -212,5 +221,4 @@
       main.generateToc();
     </script>
   </th:block>
-    
 </html>
