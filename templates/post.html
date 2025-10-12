@@ -1,8 +1,16 @@
 <!DOCTYPE html>
 <html
   xmlns:th="https://www.thymeleaf.org"
-  th:replace="~{modules/layout :: html(title = ${post.spec.title} + ' - ' + ${site.title}, header = ~{::header}, content = ~{::content}, head = null, footer = ~{::footer}, sidebar = ~{::sidebar}, contentClass = ${theme.config.layout.content_header} and ${not #strings.isEmpty(post.spec.cover)} ? '!-mt-20' : '', isSidebar = true)}"
+  th:replace="~{modules/layout :: html(title = ${post.spec.title} + ' - ' + ${site.title}, header = ~{::header}, content = ~{::content}, head = ~{::head}, footer = ~{::footer}, sidebar = ~{::sidebar}, contentClass = ${theme.config.layout.content_header} and ${not #strings.isEmpty(post.spec.cover)} ? '!-mt-20' : '', isSidebar = true)}"
 >
+  <th:block th:fragment="head">
+    <link
+      th:if="${theme.config.post.content_style == 'github'}"
+      rel="stylesheet"
+      th:href="@{/assets/styles/github-markdown.css?v={version}(version=${theme.spec.version})}"
+    />
+  </th:block>
+
   <th:block th:fragment="header">
     <th:block
       th:replace="~{modules/header :: header(isHome = false, cover = ${post.spec.cover}, title = ${post.spec.title})}"
@@ -91,6 +99,12 @@
         <div class="rounded-md bg-gray-100 p-4 text-sm font-light" th:text="${post.status.excerpt}"></div>
       </th:block>
       <article
+        th:if="${theme.config.post.content_style == 'github'}"
+        th:utext="${post.content.content}"
+        class="markdown-body !mt-4"
+      ></article>
+      <article
+        th:if="${theme.config.post.content_style == 'tailwind'}"
         id="content"
         class="prose prose-base mt-4 !max-w-none font-normal prose-h1:text-2xl prose-h2:text-xl prose-h3:text-lg prose-h4:text-base prose-pre:p-0 prose-tr:break-keep prose-th:border prose-th:border-solid prose-th:border-[var(--tw-prose-td-borders)] prose-th:bg-neutral-300 prose-th:p-2 prose-td:border prose-td:border-solid prose-td:border-[var(--tw-prose-td-borders)] prose-td:p-2 dark:prose-invert prose-th:dark:bg-neutral-400"
         th:utext="${post.content.content}"

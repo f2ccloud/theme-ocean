@@ -1,8 +1,15 @@
 <!DOCTYPE html>
 <html
   xmlns:th="https://www.thymeleaf.org"
-  th:replace="~{modules/layout :: html(title = ${singlePage.spec.title} + ' - ' + ${site.title}, header = ~{::header}, content = ~{::content}, head = null, footer = ~{::footer}, sidebar = null, contentClass = ${theme.config.layout.content_header} and ${not #strings.isEmpty(singlePage.spec.cover)} ? '!-mt-20' : '', isSidebar = true)}"
+  th:replace="~{modules/layout :: html(title = ${singlePage.spec.title} + ' - ' + ${site.title}, header = ~{::header}, content = ~{::content}, head = ~{::head}, footer = ~{::footer}, sidebar = null, contentClass = ${theme.config.layout.content_header} and ${not #strings.isEmpty(singlePage.spec.cover)} ? '!-mt-20' : '', isSidebar = true)}"
 >
+  <th:block th:fragment="head">
+    <link
+      th:if="${theme.config.post.content_style == 'github'}"
+      rel="stylesheet"
+      th:href="@{/assets/styles/github-markdown.css?v={version}(version=${theme.spec.version})}"
+    />
+  </th:block>
   <th:block th:fragment="header">
     <th:block
       th:replace="~{modules/header :: header(isHome = false, cover = ${singlePage.spec.cover}, title = ${singlePage.spec.title})}"
@@ -53,6 +60,12 @@
       </div>
       <h1 class="my-3 text-2xl font-medium dark:text-zinc-50" th:text="${singlePage.spec.title}"></h1>
       <article
+        th:if="${theme.config.post.content_style == 'github'}"
+        th:utext="${singlePage.content.content}"
+        class="markdown-body !mt-4"
+      ></article>
+      <article
+        th:if="${theme.config.post.content_style == 'tailwind'}"
         class="prose prose-base mt-4 !max-w-none font-normal prose-h1:text-2xl prose-h2:text-xl prose-h3:text-lg prose-h4:text-base prose-pre:p-0 prose-tr:break-keep prose-th:border prose-th:border-solid prose-th:border-[var(--tw-prose-td-borders)] prose-td:border prose-td:border-solid prose-td:border-[var(--tw-prose-td-borders)] dark:prose-invert"
         th:utext="${singlePage.content.content}"
       ></article>

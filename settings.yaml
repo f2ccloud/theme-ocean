@@ -213,6 +213,18 @@ spec:
           key: category
           label: 模块三数据
           help: 默认显示选中分类的前六篇文章
+    - group: post
+      label: 文章
+      formSchema:
+        - $formkit: select
+          name: content_style
+          label: 内容样式
+          value: "github"
+          options:
+            - label: GitHub 风格
+              value: github
+            - label: Tailwind CSS Typography
+              value: tailwind
     - group: style
       label: 样式
       formSchema:
