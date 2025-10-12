@@ -8,7 +8,7 @@
               <img
                 th:if="${not #strings.isEmpty(theme.config.footer.logo)} or ${not #strings.isEmpty(site.logo)}"
                 th:src="${theme.config.footer.logo ?: site.logo}"
-                class="mr-3 h-16 w-16 text-zinc-600 dark:text-zinc-200"
+                class="mr-3 w-16 text-zinc-600 dark:text-zinc-200"
                 th:alt="${site.title}"
               />
             </div>
@@ -201,7 +201,7 @@
               <img
                 th:if="${not #strings.isEmpty(theme.config.footer.logo)} or ${not #strings.isEmpty(site.logo)}"
                 th:src="${theme.config.footer.logo ?: site.logo}"
-                class="h-16 w-16"
+                class="w-16"
                 th:alt="${site.title}"
               />
             </div>
