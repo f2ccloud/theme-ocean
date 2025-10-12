@@ -14,8 +14,10 @@
       main.initColorScheme("[[${theme.config.style.color_scheme}]]",[[${theme.config.style.enable_change_color_scheme}]])
     </script>
   </head>
-  <body class="dark:bg-zinc-900" x-data="search" 
-        th:classappend="${isSidebar == false ? 'bg-[#F8F9FC]' : 'bg-[#F2F2F2]'}">
+  <body
+    class="dark:bg-zinc-900"
+    th:classappend="${isSidebar == false ? 'bg-[#F8F9FC]' : 'bg-[#F2F2F2]'}"
+  >
     <th:block th:if="${header != null}">
       <th:block th:replace="${header}" />
     </th:block>
@@ -25,33 +27,9 @@
     <section class="container mx-auto"></section>
     <section class="container mx-auto mt-6 grid grid-cols-4 gap-6" th:classappend="${contentClass}">
       <div th:class="${isSidebar == true ? 'col-span-4 sm:col-span-3' : 'col-span-5 sm:col-span-4'}">
-        <div x-show="!isSearch">
+        <div>
           <th:block th:replace="${content}" />
         </div>
-        <template x-if="isSearch">
-          <div class="mt-6 grid grid-cols-1 gap-6">
-            <template x-if="searchData.total == 0">
-              <div class="mt-6 flex items-center justify-center">
-                <span class="text-sm font-light text-gray-600">当前没有文章</span>
-              </div>
-            </template>
-            <template x-for="sear in searchData.hits">
-              <a x-bind:href="sear.permalink">
-                <div
-                  class="group flex !grid cursor-pointer grid-cols-1 flex-col overflow-hidden rounded-xl bg-white shadow-md ring-black transition-all duration-500 hover:-translate-y-1 hover:shadow-lg hover:ring-2 hover:ring-[#3296ef] dark:bg-zinc-800 dark:ring-slate-700 sm:grid-cols-5"
-                >
-                  <div class="relative col-span-3 flex flex-col gap-2 p-4">
-                    <h1
-                      class="cursor-pointer text-2xl font-medium transition-all line-clamp-2 hover:underline dark:text-zinc-50 dark:hover:text-white sm:line-clamp-2"
-                      x-html="sear.title"
-                    ></h1>
-                    <p class="font-sm font-light line-clamp-6 dark:text-zinc-200" x-html="sear.content"></p>
-                  </div>
-                </div>
-              </a>
-            </template>
-          </div>
-        </template>
       </div>
 
       <th:block th:if="${isSidebar == true}">

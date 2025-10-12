@@ -6,7 +6,6 @@ import dropdown from "./alpine-data/dropdown";
 import colorSchemeSwitcher from "./alpine-data/color-scheme-switcher";
 import pagination from "./alpine-data/pagination";
 import postUtil from "./alpine-data/post-util";
-import search from "./alpine-data/search";
 
 window.Alpine = Alpine;
 
@@ -16,8 +15,6 @@ Alpine.data("colorSchemeSwitcher", colorSchemeSwitcher);
 Alpine.data("pagination", pagination);
 // @ts-ignore
 Alpine.data("postUtil", postUtil);
-// @ts-ignore
-Alpine.data("search", search);
 
 Alpine.start();
 

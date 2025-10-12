@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="https://www.thymeleaf.org"
+  th:replace="~{modules/layout :: html(title = ${#strings.isEmpty(searchResult.keyword) ? '搜索' + ' - ' + site.title : '搜索结果：' + searchResult.keyword + ' - ' + site.title}, header = null, content = ~{::content}, head = null, footer = null, sidebar = null, contentClass = null, isSidebar = true)}"
+>
+  <th:block th:fragment="content">
+    <h2 class="text-gray-900 dark:text-zinc-100" th:text="|${#lists.size(searchResult.hits) ?: 0} 条搜索结果|"></h2>
+
+    <div id="search-list" class="mt-6 grid grid-cols-1 gap-6">
+      <div
+        class="group grid cursor-pointer grid-cols-1 flex-col overflow-hidden rounded-xl bg-white shadow ring-black transition-all duration-500 hover:-translate-y-1 hover:shadow-lg hover:ring-2 hover:ring-[#3296ef] dark:bg-zinc-800 dark:ring-slate-700 sm:grid-cols-5"
+        th:each="hit : ${searchResult.hits}"
+      >
+        <div class="relative col-span-5 flex flex-col gap-2 p-4">
+          <a
+            class="cursor-pointer text-lg font-medium text-[#000000] transition-all line-clamp-2 hover:text-gray-500 hover:underline dark:text-zinc-50 dark:hover:text-white sm:line-clamp-1"
+            th:href="@{${hit.permalink}}"
+            th:utext="${hit.title}"
+          ></a>
+          <p
+            th:unless="${#strings.isEmpty(hit.description)}"
+            th:utext="${hit.description}"
+            class="text-sm text-[#616161] line-clamp-6 dark:text-zinc-200"
+          ></p>
+          <div
+            class="mt-4 text-sm tabular-nums text-zinc-600 dark:text-zinc-300"
+            th:text="|发布于 ${#dates.format(hit.creationTimestamp,'yyyy-MM-dd')}|"
+          ></div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      th:if="${#lists.isEmpty(searchResult.hits)} or ${#strings.isEmpty(searchResult?.keyword)}"
+      class="mt-6 flex items-center justify-center"
+    >
+      <span
+        th:if="${#lists.isEmpty(searchResult.hits)} and ${not #strings.isEmpty(searchResult?.keyword)}"
+        class="text-sm font-light text-gray-600"
+      >
+        没有搜索到文章
+      </span>
+      <span th:if="${#strings.isEmpty(searchResult?.keyword)}" class="text-sm font-light text-gray-600">
+        请输入搜索关键词
+      </span>
+    </div>
+  </th:block>
+</html>
