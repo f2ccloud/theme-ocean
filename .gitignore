@@ -25,4 +25,4 @@ node_modules
 build
 dist
 dist.zip
-
+templates/assets/dist
