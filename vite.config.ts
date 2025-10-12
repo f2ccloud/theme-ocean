@@ -3,7 +3,9 @@ import { fileURLToPath } from "url";
 import path from "path";
 
 export default defineConfig({
-  plugins: [],
+  experimental: {
+    enableNativePlugin: true,
+  },
   build: {
     outDir: fileURLToPath(new URL("./templates/assets/dist", import.meta.url)),
     emptyOutDir: true,
@@ -12,6 +14,7 @@ export default defineConfig({
       name: "main",
       fileName: "main",
       formats: ["iife"],
+      cssFileName: "style",
     },
   },
 });

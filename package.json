@@ -1,68 +1,52 @@
 {
-  "name": "@halo-dev/theme-ocean",
-  "private": true,
-  "version": "1.0.0",
-  "description": "Knowledgebase theme of Halo 2.0",
-  "scripts": {
-    "dev": "vite build --watch",
-    "build": "tsc && vite build",
-    "lint": "eslint ./src --ext .js,.cjs,.mjs,.ts,.cts,.mts --ignore-path .gitignore",
-    "prettier": "prettier --write './src/**/*.{js,ts,css,json,ml,yaml,html}' './templates/**/*.html'",
-    "release": "release-it"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lxware-dev/theme-ocean"
   },
-  "keywords": [
-    "halo",
-    "halo-theme",
-    "halo-template"
-  ],
-  "homepage": "https://github.com/f2ccloud/theme-ocean#readme",
-  "bugs": {
-    "url": "https://github.com/f2ccloud/theme-ocean/issues"
-  },
-  "author": {
-    "name": "Halo OSS Organization",
-    "url": "https://github.com/halo-dev",
-    "email": "hi@halo.run"
-  },
+  "license": "GPL-3.0",
   "maintainers": [
     {
       "name": "lan-yonghui",
       "url": "https://github.com/lan-yonghui"
     }
   ],
-  "license": "GPL-3.0",
-  "repository": {
-    "url": "https://github.com/f2ccloud/theme-ocean",
-    "type": "git"
-  },
-  "devDependencies": {
-    "@iconify-json/bx": "^1.1.4",
-    "@iconify-json/gg": "^1.1.2",
-    "@iconify-json/simple-icons": "^1.1.35",
-    "@iconify-json/tabler": "^1.1.47",
-    "@tailwindcss/aspect-ratio": "^0.4.2",
-    "@tailwindcss/line-clamp": "^0.4.2",
-    "@tailwindcss/typography": "^0.5.8",
-    "@types/alpinejs": "^3.7.1",
-    "@types/node": "18.11.9",
-    "@typescript-eslint/eslint-plugin": "^5.44.0",
-    "@typescript-eslint/parser": "^5.44.0",
-    "autoprefixer": "^10.4.13",
-    "eslint": "^8.28.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "postcss": "8.4.31",
-    "prettier": "^2.7.1",
-    "prettier-plugin-tailwindcss": "^0.1.13",
-    "release-it": "^15.5.0",
-    "tailwindcss": "^3.2.4",
-    "tailwindcss-plugin-icons": "^2.0.7",
-    "axios": "1.6.0",
-    "typescript": "4.9.3",
-    "vite": "5.1.1"
+  "scripts": {
+    "build": "tsc && vite build",
+    "dev": "vite build --watch",
+    "lint": "eslint ./src --ext .js,.cjs,.mjs,.ts,.cts,.mts --ignore-path .gitignore",
+    "prettier": "prettier --write './src/**/*.{js,ts,css,json,ml,yaml,html}' './templates/**/*.html'"
   },
   "dependencies": {
-    "alpinejs": "^3.10.5",
-    "tocbot": "^4.19.0"
+    "alpinejs": "^3.15.0",
+    "tocbot": "^4.36.4"
+  },
+  "devDependencies": {
+    "@iconify-json/bx": "^1.2.2",
+    "@iconify-json/gg": "^1.2.2",
+    "@iconify-json/simple-icons": "^1.2.54",
+    "@iconify-json/tabler": "^1.2.23",
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@tailwindcss/typography": "^0.5.19",
+    "@types/alpinejs": "^3.13.11",
+    "@types/node": "18.11.9",
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@typescript-eslint/parser": "^5.62.0",
+    "autoprefixer": "^10.4.21",
+    "axios": "1.6.0",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^8.10.2",
+    "eslint-plugin-prettier": "^4.2.5",
+    "postcss": "8.4.31",
+    "prettier": "^2.8.8",
+    "prettier-plugin-tailwindcss": "^0.1.13",
+    "tailwindcss": "^3.4.18",
+    "tailwindcss-plugin-icons": "^2.2.2",
+    "typescript": "4.9.3",
+    "vite": "7.1.9"
+  },
+  "pnpm": {
+    "overrides": {
+      "vite": "npm:rolldown-vite@7.1.16"
+    }
   }
 }

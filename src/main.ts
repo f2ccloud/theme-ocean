@@ -1,7 +1,7 @@
 import "./styles/tailwind.css";
 import "./styles/main.css";
 import Alpine from "alpinejs";
-import * as tocbot from "tocbot";
+import tocbot from "tocbot";
 import dropdown from "./alpine-data/dropdown";
 import colorSchemeSwitcher from "./alpine-data/color-scheme-switcher";
 import pagination from "./alpine-data/pagination";
