@@ -23,7 +23,7 @@
       th:classappend="(${tag} and ${tag.metadata.name == tagItem.metadata.name}) ? '!bg-gray-200 dark:!bg-zinc-700 dark:!text-zinc-100 ring-2 ring-gray-300 dark:ring-zinc-600' : ''"
     >
       <th:block th:text="${tagItem.spec.displayName}" />
-      <sup th:text="${tagItem.status.visiblePostCount}"></sup>
+      <sup th:text="${tagItem.postCount}"></sup>
     </a>
   </div>
 </div>
