@@ -37,7 +37,6 @@ export function generateToc() {
     extraListClasses: "space-y-1 dark:border-zinc-500",
     extraLinkClasses:
       "group flex items-center justify-between rounded py-1 px-1.5 transition-all hover:bg-zinc-100 text-sm opacity-80 dark:hover:bg-zinc-700 dark:text-zinc-50",
-    activeLinkClass: "is-active-link bg-zinc-100 dark:bg-zinc-600",
     collapseDepth: 6,
     headingsOffset: 100,
     scrollSmooth: true,

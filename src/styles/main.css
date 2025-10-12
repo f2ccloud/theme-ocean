@@ -36,8 +36,12 @@ body {
   @apply fixed top-0 left-0 right-0 z-10 drop-shadow-md backdrop-blur-lg;
 }
 
-.toc-list-item > .toc-list {
+.toc-list-item>.toc-list {
   @apply my-3 ml-3 space-y-1 border-l pl-2;
+}
+
+.is-active-link {
+  @apply rounded bg-gray-100 dark:bg-slate-600;
 }
 
 .text-overflow {
@@ -120,13 +124,13 @@ body {
     }
   }
 
-  p > img {
+  p>img {
     border-radius: 0.4rem;
     overflow: hidden;
     @apply shadow;
   }
 
-  :not(pre) > code {
+  :not(pre)>code {
     background-color: #afb8c133;
   }
 }

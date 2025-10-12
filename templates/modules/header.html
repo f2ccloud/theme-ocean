@@ -5,21 +5,17 @@
         <div class="flex h-full items-center gap-6">
           <div class="mr-2 h-full">
             <a href="/" class="inline-flex h-full items-center">
-              <template x-if="currentValue && currentValue == 'dark'">
-                <img
-                  th:if="${not #strings.isEmpty(theme.config.style.dark_logo)}"
-                  th:src="${theme.config.style.dark_logo}"
-                  th:alt="dark_logo"
-                  class="max-h-16 w-full"
-                />
+              <template
+                th:if="${not #strings.isEmpty(theme.config.style.dark_logo)}"
+                x-if="currentValue && currentValue == 'dark'"
+              >
+                <img th:src="${theme.config.style.dark_logo}" th:alt="dark_logo" class="max-h-16 w-full" />
               </template>
-              <template x-if="currentValue && currentValue == 'light'">
-                <img
-                  th:if="${not #strings.isEmpty(theme.config.style.light_logo)}"
-                  th:src="${theme.config.style.light_logo}"
-                  th:alt="light_logo"
-                  class="max-h-16 w-full"
-                />
+              <template
+                th:if="${not #strings.isEmpty(theme.config.style.light_logo)}"
+                x-if="currentValue && currentValue == 'light'"
+              >
+                <img th:src="${theme.config.style.light_logo}" th:alt="light_logo" class="max-h-16 w-full" />
               </template>
               <img
                 th:if="${#strings.isEmpty(theme.config.style.dark_logo) and #strings.isEmpty(theme.config.style.light_logo) and not #strings.isEmpty(site.logo)}"
