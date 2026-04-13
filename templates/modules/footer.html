@@ -244,8 +244,8 @@
           </th:block>
         </div>
       </div>
-      <div class="w-full px-4 text-center lg:w-2/12">
-        <div th:if="${not #strings.isEmpty(theme.config.footer.qrcode)}" classx="sm:w-full sm:text-center">
+      <div th:if="${not #strings.isEmpty(theme.config.footer.qrcode)}" class="w-full px-4 text-center lg:w-2/12">
+        <div classx="sm:w-full sm:text-center">
           <h2 class="mb-6 text-lg font-semibold text-zinc-50">关注我们</h2>
           <img th:src="${theme.config.footer.qrcode}" width="150px" class="mx-auto" />
         </div>
